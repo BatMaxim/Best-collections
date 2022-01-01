@@ -1,6 +1,8 @@
 import {useSelector, useDispatch} from "react-redux";
 import './App.css';
 import {click_btn} from "./actions/testActions";
+import Header from "./components/Header/Header";
+import {Container} from "react-bootstrap";
 
 function App() {
     const dispatch = useDispatch();
@@ -11,8 +13,10 @@ function App() {
     }
     return (
         <div className="App">
-          Hello world!
-            <button onClick={clickBtn}>Click</button>
+          <Header />
+          <Container>
+              <button onClick={clickBtn}>Click</button>
+          </Container>
         </div>
     );
 }
