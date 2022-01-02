@@ -1,13 +1,19 @@
 import React from "react";
 import {Navbar, Container, Nav} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap"
+import {useSelector} from "react-redux";
 import LogInButton from "../LogInButton/LogInButton";
 import LogOutButton from "../LogOutButton/LogOutButton";
 
 const Header = () => {
+    const uid = useSelector((state)=>state.user.uid);
+    console.log(uid)
     return(
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="/">Best Collections</Navbar.Brand>
+                <LinkContainer to="/">
+                    <Navbar.Brand>Best Collections</Navbar.Brand>
+                </LinkContainer>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -15,8 +21,8 @@ const Header = () => {
                         <Nav.Link href="#">Users</Nav.Link>
                     </Nav>
                    <div>
-                       <LogInButton />
-                       <LogOutButton />
+                       {!uid ? <LogInButton /> : <LogOutButton />}
+
                    </div>
                 </Navbar.Collapse>
             </Container>

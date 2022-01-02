@@ -1,21 +1,21 @@
-import {useSelector, useDispatch} from "react-redux";
 import './App.css';
-import {click_btn} from "./actions/testActions";
 import Header from "./components/Header/Header";
 import {Container} from "react-bootstrap";
+import {Route, Routes} from "react-router-dom";
+import WelcomePage from "./pages/WelcomePage/WelcomePage";
+import LogInPage from "./pages/LogInPage/LogInPage";
+import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 
 function App() {
-    const dispatch = useDispatch();
-    const btn = useSelector((state)=>state.test.btn);
-    const clickBtn = () => {
-        dispatch(click_btn(!btn));
-        console.log(btn)
-    }
     return (
         <div className="App">
           <Header />
           <Container>
-              <button onClick={clickBtn}>Click</button>
+                <Routes>
+                    <Route exact path="/" element={<WelcomePage />}/>
+                    <Route exact path="/login" element={<LogInPage />}/>
+                    <Route exact path="/registration" element={<RegistrationPage />}/>
+                </Routes>
           </Container>
         </div>
     );

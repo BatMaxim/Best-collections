@@ -1,8 +1,8 @@
 import { createStore, combineReducers} from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import TestReducer from "./Test";
+import UserReducer from "./UserReducer";
 const rootReducer = combineReducers( {
-    test: TestReducer,
+    user: UserReducer,
 })
 export const store = createStore(
     rootReducer,
