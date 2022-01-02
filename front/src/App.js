@@ -6,6 +6,7 @@ import WelcomePage from "./pages/WelcomePage/WelcomePage";
 import LogInPage from "./pages/LogInPage/LogInPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
     return (
@@ -16,7 +17,9 @@ function App() {
                     <Route exact path="/" element={<WelcomePage />}/>
                     <Route exact path="/login" element={<LogInPage />}/>
                     <Route exact path="/registration" element={<RegistrationPage />}/>
-                    <Route exact path="/profile" element={<ProfilePage />}/>
+                    <Route exact path="/profile"
+                           element={<PrivateRoute component={<ProfilePage />}/>} />
+                    <Route path="*" element={<WelcomePage />}/>
                 </Routes>
           </Container>
         </div>
