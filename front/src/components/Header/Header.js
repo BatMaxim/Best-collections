@@ -16,8 +16,12 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#">Profile</Nav.Link>
-                        <Nav.Link href="#">Users</Nav.Link>
+                        <LinkContainer to="/profile">
+                            <Nav.Link>Profile</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/users">
+                            <Nav.Link>Users</Nav.Link>
+                        </LinkContainer>
                     </Nav>
                    <div>
                        {!uid ? <LogInButton /> : <LogOutButton />}
