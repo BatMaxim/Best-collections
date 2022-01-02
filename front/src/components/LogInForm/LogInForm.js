@@ -1,14 +1,27 @@
 import React, {useState} from "react";
 import {Form, Button} from "react-bootstrap";
 import "./LogInForm.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {userLogIn} from "../../actions/userActions";
+import {useDispatch} from "react-redux";
 
 const LogInForm = ({title, handleClick}) =>{
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("")
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const submitForm= (event)=>{
         event.preventDefault();
-        handleClick();
+        handleClick(login, password)
+            .then((userCredential) => {
+                const {email, uid, accessToken} = userCredential.user;
+                dispatch(userLogIn(email,uid,accessToken));
+                navigate("/")
+            })
+            .catch((err)=>{
+                    console.log(err);
+                }
+            )
     }
     return(
         <Form className="log-in__form"

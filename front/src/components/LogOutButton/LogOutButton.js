@@ -1,9 +1,12 @@
 import React from "react";
+import {useDispatch} from "react-redux";
+import {userLogOut} from "../../actions/userActions";
 import {Button} from "react-bootstrap";
 
 const LogOutButton = () =>{
+    const dispatch = useDispatch();
     const logout = () =>{
-        console.log("Log out");
+        dispatch(userLogOut());
     }
     return( <Button variant="outline-light" onClick={() => logout()}>Log out</Button>)
 }

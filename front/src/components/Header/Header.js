@@ -7,7 +7,6 @@ import LogOutButton from "../LogOutButton/LogOutButton";
 
 const Header = () => {
     const uid = useSelector((state)=>state.user.uid);
-    console.log(uid)
     return(
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
