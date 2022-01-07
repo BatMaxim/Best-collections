@@ -7,6 +7,7 @@ import LogInPage from "./pages/LogInPage/LogInPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import UsersPage from "./pages/UsersPage/UsersPage";
 
 function App() {
     return (
@@ -19,6 +20,8 @@ function App() {
                     <Route exact path="/registration" element={<RegistrationPage />}/>
                     <Route exact path="/profile"
                            element={<PrivateRoute component={<ProfilePage />}/>} />
+                    <Route exact path="/users"
+                           element={<PrivateRoute component={<UsersPage />}/>} />
                     <Route path="*" element={<WelcomePage />}/>
                 </Routes>
           </Container>
