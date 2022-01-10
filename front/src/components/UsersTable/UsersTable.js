@@ -8,8 +8,8 @@ const UsersTable = ({users}) => {
             <thead>
             <tr>
                 <th>#</th>
-                <th>ID</th>
                 <th>Email</th>
+                <th>ID</th>
                 <th>Ban status</th>
             </tr>
             </thead>
