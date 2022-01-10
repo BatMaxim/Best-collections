@@ -2,7 +2,7 @@ import React from "react";
 import {Table} from "react-bootstrap";
 import UserItem from "../UserItem/UserItem";
 
-const UsersTable = () => {
+const UsersTable = ({users}) => {
     return(
         <Table responsive="sm">
             <thead>
@@ -14,9 +14,9 @@ const UsersTable = () => {
             </tr>
             </thead>
             <tbody>
-                <UserItem user={{uid: 1235468432123548231, email: "abc@test.tu"}}/>
-                <UserItem user={{uid: 1235468432123548231, email: "abc@test.tu"}}/>
-                <UserItem user={{uid: 1235468432123548231, email: "abc@test.tu"}}/>
+            {
+                users.map(user=><UserItem key={user.uid} user={user}/>)
+            }
             </tbody>
         </Table>
     )

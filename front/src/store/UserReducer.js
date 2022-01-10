@@ -1,4 +1,5 @@
 import {LOG_IN, LOG_OUT} from "./types/userTypes"
+
 const initialState = {
     userName:null,
     uid:null,
