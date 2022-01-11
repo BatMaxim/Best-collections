@@ -35,4 +35,4 @@ const setAdminRole = (uid, adminRole) =>{
     return admin.auth().setCustomUserClaims(uid, { admin: adminRole });
 }
 
-module.exports = {getAllUsers, deleteUser, checkToken, setAdminRole}
+module.exports = {getAllUsers, deleteUser, checkToken, setAdminRole, updateUser}
