@@ -2,7 +2,7 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require("cors");
-const {getAllUsers, deleteUser} = require("./firebaseAdmin");
+const {getAllUsers, deleteUser, setAdminRole} = require("./firebaseAdmin");
 const path = require("path");
 const app = express();
 
@@ -23,6 +23,15 @@ app.get("/api/users", (req, res)=>{
 app.delete("/api/users", (req, res)=>{
     try{
         req.body.users.forEach(user=>{deleteUser(user).then(()=>{res.json({mes: "OK"})})})
+    }
+    catch (e) {
+        console.log(e);
+    }
+})
+
+app.put("/api/users/admin",(req, res)=>{
+    try{
+        req.body.data.users.forEach(user=>{setAdminRole(user, req.body.data.admin).then(()=>{res.json({mes: "OK"})})})
     }
     catch (e) {
         console.log(e);
