@@ -14,7 +14,6 @@ const getAllUsers = () => {
 
 const deleteUser = (uid) => {
     return admin.auth().deleteUser(uid);
-
 }
 
 const updateUser = (uid, properties)=>{
