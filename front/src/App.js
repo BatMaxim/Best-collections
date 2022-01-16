@@ -8,8 +8,16 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import UsersPage from "./pages/UsersPage/UsersPage";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {autoLogIn} from "./actions/userActions";
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        console.log("test")
+        dispatch(autoLogIn());
+    },[]);
     return (
         <div className="App">
           <Header />
