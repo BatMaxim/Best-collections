@@ -3,8 +3,8 @@ import React from "react";
 const Profile = ({user}) =>{
     return(
         <div>
-            <h3>Email: {user.userName}</h3>
-            <h5>Id: {user.uid}</h5>
+            <h4>Email: {user.userName}</h4>
+            <h4>Id: {user.uid}</h4>
 
         </div>
     )
