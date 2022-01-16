@@ -11,6 +11,7 @@ import UsersPage from "./pages/UsersPage/UsersPage";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {autoLogIn} from "./actions/userActions";
+import CollectionPage from "./pages/CollectionPage/CollectionPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
                 <Routes>
                     <Route exact path="/" element={<WelcomePage />}/>
                     <Route exact path="/login" element={<LogInPage />}/>
+                    <Route path="/collection/:collectionId" element={<CollectionPage />}/>
                     <Route exact path="/registration" element={<RegistrationPage />}/>
                     <Route exact path="/profile"
                            element={<PrivateRoute component={<ProfilePage />}/>} />

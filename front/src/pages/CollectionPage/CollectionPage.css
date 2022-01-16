@@ -1,0 +1,18 @@
+.collection{
+    margin-top: 10px;
+}
+.collection__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.collection__img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.collection__img-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
