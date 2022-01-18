@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const {getAllUsers, deleteUser, setAdminRole, updateUser} = require("./firebaseAdmin");
 const path = require("path");
+const {getCollections} = require("./Database/Controllers/CollectionController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -45,6 +46,13 @@ app.put("/api/users/block",(req, res)=>{
     catch (e) {
         console.log(e);
     }
+})
+
+app.get("/api/collections", (req, res)=>{
+    getCollections().then(collections=>{
+        res.json(collections);
+    })
+
 })
 
 app.all("*", (req, res)=>{

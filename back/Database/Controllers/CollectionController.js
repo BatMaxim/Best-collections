@@ -1,15 +1,15 @@
 const Collection = require("../Models/Collection");
 const Topic = require("../Models/Topic");
-const {SelectAllItems} = require("../Models/Database");
+const {SelectAllItems} = require("../Database");
 
-const getAllCollections = async (params) => {
-    const collecions = await SelectAllItems(Collection, params);
-    console.log(collecions);
-}
-
-getAllCollections({
-    include: {
+const getCollections = async () => {
+    const params = {
+        include: {
         model: Topic,
         required: true
-    }
-});
+    }}
+    const collecions = await SelectAllItems(Collection, params);
+    return collecions;
+}
+
+module.exports = { getCollections };

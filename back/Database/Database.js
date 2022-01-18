@@ -1,6 +1,6 @@
 const {Sequelize} = require("sequelize");
-const Collection = require("./Collection");
-const dbConfig = require("../../databaseConfig.json");
+const Collection = require("./Models/Collection");
+const dbConfig = require("../databaseConfig.json");
 
 const database = new Sequelize(dbConfig.name, dbConfig.name, dbConfig.password, {
     dialect: "mysql",
