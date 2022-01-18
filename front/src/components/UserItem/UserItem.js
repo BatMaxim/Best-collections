@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTools } from '@fortawesome/free-solid-svg-icons'
 import {Checkbox} from "@createnl/grouped-checkboxes";
 const UserItem = ({user}) => {
-    console.log(user)
     return(
         <tr>
             <td><Checkbox value={user.uid}/></td>

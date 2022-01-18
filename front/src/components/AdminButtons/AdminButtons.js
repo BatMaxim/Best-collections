@@ -7,7 +7,7 @@ import {clearUsers, getUsers} from "../../actions/usersActions";
 const AdminButtons = ({selectedUsers}) => {
     const dispatch = useDispatch();
     const deleteUsers = () => {
-        axios.delete("http://localhost:3001/api/users", {
+        axios.delete(`${process.env.REACT_APP_PATH}/api/users`, {
             data:{
                 users: selectedUsers,
             }
@@ -18,7 +18,7 @@ const AdminButtons = ({selectedUsers}) => {
             })
     }
     const setAdmin = (status) => {
-        axios.put("http://localhost:3001/api/users/admin", {
+        axios.put(`${process.env.REACT_APP_PATH}/api/users/admin`, {
             data:{
                 users: selectedUsers,
                 admin:status,
@@ -30,7 +30,7 @@ const AdminButtons = ({selectedUsers}) => {
             })
     }
     const setBlock = (status) => {
-        axios.put("http://localhost:3001/api/users/block", {
+        axios.put(`${process.env.REACT_APP_PATH}/api/users/block`, {
             data:{
                 users: selectedUsers,
                 block: status,

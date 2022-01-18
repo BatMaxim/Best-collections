@@ -7,7 +7,7 @@ export const addUsers = (users) => ({
 });
 
 export const getUsers = (userName) => dispatch => {
-    axios.get('http://localhost:3001/api/users')
+    axios.get(`${process.env.REACT_APP_PATH}/api/users`)
         .then(res=>{
             dispatch(addUsers(res.data.users))
         })

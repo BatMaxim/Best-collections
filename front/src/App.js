@@ -16,7 +16,6 @@ import CollectionPage from "./pages/CollectionPage/CollectionPage";
 function App() {
     const dispatch = useDispatch();
     useEffect(()=>{
-        console.log("test")
         dispatch(autoLogIn());
     },[]);
     return (

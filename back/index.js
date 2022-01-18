@@ -47,7 +47,7 @@ app.put("/api/users/block",(req, res)=>{
     }
 })
 
-app.get("*", (req, res)=>{
+app.all("*", (req, res)=>{
     res.sendFile(path.join(__dirname, "build", "index.html"))
 })
 
