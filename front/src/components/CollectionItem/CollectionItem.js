@@ -4,9 +4,9 @@ const CollectionItem = ({collection}) => {
     return(
             <tr>
                 <td><img src={collection.picture} alt={collection.name}/></td>
-                <td>Name</td>
-                <td>Topic</td>
-                <td>Description</td>
+                <td>{collection.name}</td>
+                <td>{collection.topic.name}</td>
+                <td>{collection.description}</td>
             </tr>
     );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import {Table} from "react-bootstrap";
 import CollectionItem from "../CollectionItem/CollectionItem";
 
-const CollectionsTable = () => {
+const CollectionsTable = ({ collections }) => {
     return(
         <Table striped bordered hover size="sm">
             <thead>
@@ -14,7 +14,11 @@ const CollectionsTable = () => {
             </tr>
             </thead>
             <tbody>
-            <CollectionItem collection={{picture:"http://via.placeholder.com/100x100"}}/>
+            {
+                collections.map(collection=>{
+                    return <CollectionItem collection={collection} key={collection.id}/>
+                })
+            }
             </tbody>
         </Table>
     );
