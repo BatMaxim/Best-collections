@@ -15,6 +15,9 @@ const Collection = database.define(
         description: {
             type: DataTypes.TEXT,
         },
+        picture: {
+            type: DataTypes.TEXT,
+        },
         topicId: {
             type: DataTypes.INTEGER,
         },
