@@ -1,6 +1,8 @@
 const { DataTypes } = require("sequelize");
 const { database } = require("./Database");
 
+const Topic = require("./Topic");
+
 const Collection = database.define(
     'collection',
     {
@@ -21,5 +23,7 @@ const Collection = database.define(
         timestamps: false,
     }
 );
+
+Collection.belongsTo(Topic);
 
 module.exports = Collection;
