@@ -1,9 +1,11 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {Button} from "react-bootstrap";
 import "./ProfilePage.css";
 import Profile from "../../components/Profile/Profile";
 import CollectionsTable from "../../components/CollectionsTable/CollectionsTable";
 import { getCollections } from "../../actions/collectionsActions";
+
 const ProfilePage = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -15,7 +17,11 @@ const ProfilePage = () => {
         <div className="profile">
             <h3>User Info:</h3>
             <Profile user={user}/>
-            <h3>Collections:</h3>
+            <div className="profile__collections">
+                <h3>Collections:</h3>
+                <Button variant="secondary">Add collection</Button>
+            </div>
+
             <CollectionsTable collections={collections}/>
         </div>
     )
