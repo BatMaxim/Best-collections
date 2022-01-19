@@ -1,7 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Form, Modal} from "react-bootstrap"
+import {useDispatch, useSelector} from "react-redux";
+import {getTopics} from "../../actions/collectionsActions";
 
 const CollectionDescriptionModal = ({show, close, modalInfo}) =>{
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+            dispatch(getTopics());
+    }, []);
+    const topics = useSelector((state)=>state.collections.topics);
 
     return(
         <Modal show={show}
@@ -22,8 +30,9 @@ const CollectionDescriptionModal = ({show, close, modalInfo}) =>{
                     <Form.Group className="mb-3" controlId="topic">
                         <Form.Label>Topic</Form.Label>
                         <Form.Select>
-                            <option>CARS</option>
-                            <option>BOOKS</option>
+                            {topics.map(topic=>{
+                                return(<option key={topic.id} value={topic.id}>{topic.name}</option>)
+                            })}
                         </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
