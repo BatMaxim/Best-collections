@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./firebaseAdmin");
 const path = require("path");
-const {getCollections,getCollection} = require("./Database/Controllers/CollectionController");
+const {getCollections,getCollection, addCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
 const app = express();
 
@@ -59,6 +59,12 @@ app.put("/api/users/block",(req, res)=>{
 app.get("/api/collections", (req, res)=>{
     getCollections().then(collections=>{
         res.json(collections);
+    })
+})
+
+app.post("/api/collections", (req, res)=>{
+    addCollection(req.body.data).then(collection=>{
+        res.json(collection);
     })
 })
 

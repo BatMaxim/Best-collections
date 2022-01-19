@@ -1,15 +1,28 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap"
 import {useDispatch, useSelector} from "react-redux";
 import {getTopics} from "../../actions/collectionsActions";
 
-const CollectionDescriptionModal = ({show, close, modalInfo}) =>{
+const CollectionDescriptionModal = ({show, close, send, modalInfo}) =>{
     const dispatch = useDispatch();
-
     useEffect(() => {
-            dispatch(getTopics());
+        dispatch(getTopics());
     }, []);
     const topics = useSelector((state)=>state.collections.topics);
+
+    const [name, setName] = useState('');
+    const [topicId, setTopicId] = useState(1);
+    const [description, setDescription] = useState("")
+
+    const sendForm = (event) => {
+        event.preventDefault();
+        send({
+            name:name.length? name : "New Collection",
+            topicId:topicId,
+            description:description
+        })
+        close();
+    }
 
     return(
         <Modal show={show}
@@ -19,17 +32,21 @@ const CollectionDescriptionModal = ({show, close, modalInfo}) =>{
             <Modal.Header closeButton>
                 <Modal.Title>{modalInfo.title}</Modal.Title>
             </Modal.Header>
-
+            <Form onSubmit={sendForm}>
             <Modal.Body>
-                <Form>
                     <Form.Group className="mb-3" controlId="name">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" />
+                        <Form.Control type="text"
+                                      value={name}
+                                      onChange={(event)=>setName(event.target.value)}
+                                      placeholder="Enter name" />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="topic">
                         <Form.Label>Topic</Form.Label>
-                        <Form.Select>
+                        <Form.Select
+                            value={topicId}
+                            onChange={(event)=>setTopicId(+event.target.value)}>
                             {topics.map(topic=>{
                                 return(<option key={topic.id} value={topic.id}>{topic.name}</option>)
                             })}
@@ -37,15 +54,19 @@ const CollectionDescriptionModal = ({show, close, modalInfo}) =>{
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control  as="textarea" rows={3} />
+                        <Form.Control  as="textarea"
+                                       rows={3}
+                                       value={description}
+                                       onChange={(event)=>setDescription(event.target.value)}/>
                     </Form.Group>
-                </Form>
+
             </Modal.Body>
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={close}>Close</Button>
-                <Button variant="primary">Save changes</Button>
+                <Button variant="primary" type="submit">{modalInfo.title}</Button>
             </Modal.Footer>
+            </Form>
         </Modal>
     )
 }

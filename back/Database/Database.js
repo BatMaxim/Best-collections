@@ -19,4 +19,14 @@ const SelectItem = async (model, params) => {
     return item;
 }
 
-module.exports = { database, SelectAllItems, SelectItem}
+const  InsertItem = async (model, params) => {
+    try {
+        const newItem = await model.create(params)
+        return newItem;
+    }
+    catch (err) {
+        return err;
+    }
+}
+
+module.exports = { database, SelectAllItems, SelectItem, InsertItem}
