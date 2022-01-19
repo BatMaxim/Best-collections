@@ -1,4 +1,4 @@
-import {CLEAR_COLLECTIONS, ADD_COLLECTIONS} from "../store/types/collectionsTypes";
+import { ADD_COLLECTIONS} from "../store/types/collectionsTypes";
 import axios from "axios";
 
 export const addCollections = (collections) => ({
@@ -15,7 +15,3 @@ export const getCollections = () => dispatch => {
             console.error(e);
         });
 }
-
-export const clearCollections = () => ({
-    type: CLEAR_COLLECTIONS,
-});

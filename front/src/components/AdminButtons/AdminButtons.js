@@ -13,7 +13,6 @@ const AdminButtons = ({selectedUsers}) => {
             }
         })
             .then((data)=>{
-                dispatch(clearUsers());
                 dispatch(getUsers());
             })
     }
@@ -25,7 +24,6 @@ const AdminButtons = ({selectedUsers}) => {
             }
         })
             .then((data)=>{
-                dispatch(clearUsers());
                 dispatch(getUsers());
             })
     }
@@ -37,7 +35,6 @@ const AdminButtons = ({selectedUsers}) => {
             }
         })
             .then((data)=>{
-                dispatch(clearUsers());
                 dispatch(getUsers());
             })
     }

@@ -1,4 +1,4 @@
-import {CLEAR_USERS, ADD_USERS} from "./types/usersTypes"
+import {ADD_USERS} from "./types/usersTypes"
 
 const initialState = {
     users:[]
@@ -10,11 +10,6 @@ const UsersReducer = (state = initialState, {payload, type})=>{
             return {
                 ...state,
                 users: payload
-            }
-        case CLEAR_USERS:
-            return {
-                ...state,
-                users:[]
             }
         default:
             return state;

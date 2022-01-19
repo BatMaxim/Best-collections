@@ -1,4 +1,4 @@
-import {CLEAR_COLLECTIONS, ADD_COLLECTIONS} from "./types/collectionsTypes"
+import { ADD_COLLECTIONS } from "./types/collectionsTypes"
 
 const initialState = {
     collections:[]
@@ -10,11 +10,6 @@ const CollectionsReducer = (state = initialState, {payload, type})=>{
             return {
                 ...state,
                 collections: payload
-            }
-        case CLEAR_COLLECTIONS:
-            return {
-                ...state,
-                collections:[]
             }
         default:
             return state;

@@ -1,4 +1,4 @@
-import {CLEAR_USERS, ADD_USERS} from "../store/types/usersTypes";
+import {ADD_USERS} from "../store/types/usersTypes";
 import axios from "axios";
 
 export const addUsers = (users) => ({
@@ -15,7 +15,3 @@ export const getUsers = (userName) => dispatch => {
         console.error(e);
         });
 }
-
-export const clearUsers = () => ({
-    type: CLEAR_USERS,
-});

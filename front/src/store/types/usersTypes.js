@@ -1,3 +1,3 @@
 const ADD_USERS = "ADD_USERS";
-const CLEAR_USERS = "CLEAR_USERS";
-export {ADD_USERS, CLEAR_USERS}
+
+export {ADD_USERS}

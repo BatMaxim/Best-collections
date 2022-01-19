@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import "./ProfilePage.css";
 import Profile from "../../components/Profile/Profile";
 import CollectionsTable from "../../components/CollectionsTable/CollectionsTable";
-import {clearCollections, getCollections} from "../../actions/collectionsActions";
+import { getCollections } from "../../actions/collectionsActions";
 const ProfilePage = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(clearCollections());
         dispatch(getCollections());
     }, [])
     const user = useSelector((state)=>state.user);

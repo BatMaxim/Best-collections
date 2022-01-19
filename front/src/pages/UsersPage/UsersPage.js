@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import UsersTable from "../../components/UsersTable/UsersTable";
 import {useDispatch, useSelector} from "react-redux";
-import {clearUsers, getUsers} from "../../actions/usersActions";
+import {getUsers} from "../../actions/usersActions";
 import AdminButtons from "../../components/AdminButtons/AdminButtons";
 import "./UsersPage.css";
 import {CheckboxGroup} from "@createnl/grouped-checkboxes";
@@ -14,7 +14,6 @@ const UsersPage = () => {
         setSelectedUsers(checkboxes.filter(el=>el.checked).map(el=>el.value));
     }
     useEffect(()=>{
-        dispatch(clearUsers());
         dispatch(getUsers());
     }, [])
 
