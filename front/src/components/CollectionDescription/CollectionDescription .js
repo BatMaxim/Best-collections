@@ -1,15 +1,17 @@
 import React from "react";
 import {Button, Card} from "react-bootstrap";
+import {useSelector} from "react-redux";
 
 const CollectionDescription = ({collection}) => {
-    return(
+        const user = useSelector((state)=>state.user);
+        return(
         <Card className="collection">
             <Card.Header className="collection__header">
                 <div className="collection__img-container">
                     <img className="collection__img" src={collection.picture}/>
                     <>Collection: {collection.id}</>
                 </div>
-                <Button variant="secondary">Edit</Button>
+                {user.uid===collection.author?.id && <Button variant="secondary">Edit</Button>}
             </Card.Header>
             <Card.Body>
                 <Card.Title>{collection.name}</Card.Title>
