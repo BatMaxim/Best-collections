@@ -2,7 +2,7 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require("cors");
-const {getAllUsers, deleteUser, setAdminRole, updateUser} = require("./firebaseAdmin");
+const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./firebaseAdmin");
 const path = require("path");
 const {getCollections,getCollection} = require("./Database/Controllers/CollectionController");
 const app = express();
@@ -18,6 +18,13 @@ app.get("/api/users", (req, res)=>{
     getAllUsers()
         .then(users=>{
             res.json(users);
+        });
+})
+
+app.get("/api/users/:uid", (req, res)=>{
+    getUser(req.params.uid)
+        .then(user=>{
+            res.json(user);
         });
 })
 

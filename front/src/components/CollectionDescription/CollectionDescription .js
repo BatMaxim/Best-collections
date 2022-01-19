@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Card} from "react-bootstrap";
 
 const CollectionDescription = ({collection}) => {
+    console.log(collection);
     return(
         <Card className="collection">
             <Card.Header className="collection__header">
@@ -14,7 +15,7 @@ const CollectionDescription = ({collection}) => {
             <Card.Body>
                 <Card.Title>{collection.name}</Card.Title>
                 <Card.Text>
-                    Author: test@test.ru
+                    Author: {collection.author.email}
                 </Card.Text>
                 <Card.Text>
                     {collection.description}

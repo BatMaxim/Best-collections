@@ -6,12 +6,12 @@ export const addCollection = (collection) => ({
     payload: collection
 });
 
-export const getCollection = (id) => dispatch => {
-    axios.get(`${process.env.REACT_APP_PATH}/api/collection/${id}`)
-        .then(res=>{
-            dispatch(addCollection(res.data))
-        })
-        .catch(e => {
-            console.error(e);
-        });
+export const getCollection =  (id) => async dispatch => {
+    let collection = await axios.get(`${process.env.REACT_APP_PATH}/api/collection/${id}`);
+    let author = await axios.get(`${process.env.REACT_APP_PATH}/api/users/${collection.data.authorId}`);
+    collection.data.author ={
+        id: author.data.uid,
+        email: author.data.email,
+    };
+    dispatch(addCollection(collection.data));
 }

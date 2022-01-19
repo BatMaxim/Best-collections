@@ -11,7 +11,7 @@ const CollectionPage = () => {
     useEffect(()=>{
         dispatch(getCollection(collectionId));
     }, [])
-    const collection = useSelector((state)=>state.collection);
+    const collection = useSelector((state)=>state.collection.collection);
     return(
         <div>
             <CollectionDescription collection={collection}/>

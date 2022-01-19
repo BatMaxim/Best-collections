@@ -8,8 +8,11 @@ admin.initializeApp({
 
 
 const getAllUsers = () => {
-    let users = [];
     return admin.auth().listUsers();
+};
+
+const getUser = (uid) => {
+    return admin.auth().getUser(uid);
 };
 
 const deleteUser = (uid) => {
@@ -35,4 +38,4 @@ const setAdminRole = (uid, adminRole) =>{
     return admin.auth().setCustomUserClaims(uid, { admin: adminRole });
 }
 
-module.exports = {getAllUsers, deleteUser, checkToken, setAdminRole, updateUser}
+module.exports = {getAllUsers, deleteUser, checkToken, setAdminRole, updateUser, getUser}
