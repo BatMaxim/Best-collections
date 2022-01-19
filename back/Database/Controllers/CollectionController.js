@@ -1,9 +1,10 @@
 const Collection = require("../Models/Collection");
 const Topic = require("../Models/Topic");
-const {SelectAllItems} = require("../Database");
+const {SelectAllItems, SelectItem} = require("../Database");
 
-const getCollections = async () => {
+const getCollections = async (customParams) => {
     const params = {
+        customParams,
         include: {
         model: Topic,
         required: true
@@ -12,4 +13,17 @@ const getCollections = async () => {
     return collecions;
 }
 
-module.exports = { getCollections };
+const getCollection = async (id) => {
+    const params = {
+        where:{
+            id: id,
+        },
+        include: {
+            model: Topic,
+            required: true
+        }}
+    const collecions = await SelectItem(Collection, params);
+    return collecions;
+}
+
+module.exports = { getCollections, getCollection };

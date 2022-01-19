@@ -13,4 +13,10 @@ const SelectAllItems = async (model, params) => {
     return allItems;
 }
 
-module.exports = { database, SelectAllItems}
+const SelectItem = async (model, params) => {
+    await model.sync();
+    const item = await model.findOne(params);
+    return item;
+}
+
+module.exports = { database, SelectAllItems, SelectItem}
