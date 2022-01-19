@@ -14,10 +14,13 @@ const CollectionDescription = ({collection}) => {
             <Card.Body>
                 <Card.Title>{collection.name}</Card.Title>
                 <Card.Text>
+                    Topic: {collection.topic?.name}
+                </Card.Text>
+                <Card.Text>
                     Author: {collection.author?.email}
                 </Card.Text>
                 <Card.Text>
-                    {collection.description}
+                    Description: {collection.description}
                 </Card.Text>
             </Card.Body>
         </Card>
