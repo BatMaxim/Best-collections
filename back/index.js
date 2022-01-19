@@ -5,6 +5,7 @@ const cors = require("cors");
 const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./firebaseAdmin");
 const path = require("path");
 const {getCollections,getCollection} = require("./Database/Controllers/CollectionController");
+const {getTopics} = require("./Database/Controllers/TopicController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -64,6 +65,12 @@ app.get("/api/collections", (req, res)=>{
 app.get("/api/collection/:collectionId", (req, res)=>{
     getCollection(req.params.collectionId).then(collection=>{
         res.json(collection);
+    })
+})
+
+app.get("/api/topics", (req, res)=>{
+    getTopics().then(topics=>{
+        res.json(topics);
     })
 })
 
