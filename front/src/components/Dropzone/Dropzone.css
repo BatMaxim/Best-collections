@@ -1,0 +1,15 @@
+.dropzone{
+    width: 100%;
+    height: 20vh;
+    color: #6c757d;
+    border: 5px dashed #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+.dropzone:hover{
+    transition: 0.3s;
+    color: darkgray;
+    border-color: darkgray;
+}

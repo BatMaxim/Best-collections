@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import "./Dropzone.css";
 
 function Dropzone() {
             console.log(acceptedFile);
@@ -12,12 +13,12 @@ function Dropzone() {
     })
 
     return (
-        <div {...getRootProps()}>
+        <div {...getRootProps()} className="dropzone">
             <input {...getInputProps()} />
             {
                 isDragActive ?
-                    <p>Drop the files here ...</p> :
-                    <p>Drag 'n' drop some files here, or click to select files</p>
+                    <p>Drop the file here ...</p> :
+                    <p>Drag 'n' drop image here, or click to select file</p>
             }
         </div>
     )
