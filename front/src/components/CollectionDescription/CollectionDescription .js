@@ -1,6 +1,8 @@
 import React from "react";
 import {Button, Card} from "react-bootstrap";
 import {useSelector} from "react-redux";
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 const CollectionDescription = ({collection}) => {
         const user = useSelector((state)=>state.user);
@@ -22,8 +24,13 @@ const CollectionDescription = ({collection}) => {
                     Author: {collection.author?.email}
                 </Card.Text>
                 <Card.Text>
-                    Description: {collection.description}
+                    Description:
                 </Card.Text>
+                <div>
+                    <ReactMarkdown children={collection.description}
+                                   remarkPlugins={[remarkGfm]}/>
+                </div>
+
             </Card.Body>
         </Card>
     )
