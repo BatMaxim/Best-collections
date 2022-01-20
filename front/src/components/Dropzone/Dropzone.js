@@ -1,13 +1,15 @@
 import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function Dropzone() {
-    const onDrop = useCallback(acceptedFiles => {
-        acceptedFiles.forEach(file=>{
-            console.log(file);
-        })
+            console.log(acceptedFile);
     }, [])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop,
+        multiple: false,
+        maxSize: 10485760,
+        accept:"image/*",
+    })
 
     return (
         <div {...getRootProps()}>
