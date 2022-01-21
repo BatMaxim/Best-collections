@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./firebaseAdmin");
 const path = require("path");
-const {getCollections,getCollection, addCollection, updateCollection} = require("./Database/Controllers/CollectionController");
+const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
 const app = express();
 
@@ -83,6 +83,18 @@ app.put("/api/collections/:collectionId", (req, res)=>{
     updateCollection(req.body, params).then(collection=>{
         res.json(collection);
 
+    })
+})
+
+app.delete("/api/collections/:collectionId", (req, res)=>{
+    console.log(req.params.collectionId)
+    const params = {
+        where:{
+            id:req.params.collectionId,
+        }
+    }
+    deleteCollection(params).then(collection=>{
+        res.json(collection);
     })
 })
 

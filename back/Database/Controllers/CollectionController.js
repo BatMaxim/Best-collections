@@ -1,6 +1,6 @@
 const Collection = require("../Models/Collection");
 const Topic = require("../Models/Topic");
-const {SelectAllItems, SelectItem, InsertItem, UpdateItem} = require("../Database");
+const {SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem} = require("../Database");
 
 const getCollections = async (customParams) => {
     const params = {
@@ -35,4 +35,9 @@ const updateCollection = async (newValues, params) => {
     return collecions;
 }
 
-module.exports = { getCollections, getCollection, addCollection, updateCollection };
+const deleteCollection = async (params) => {
+    const collecions = await DeleteItem(Collection, params);
+    return collecions;
+}
+
+module.exports = { getCollections, getCollection, addCollection, updateCollection, deleteCollection };

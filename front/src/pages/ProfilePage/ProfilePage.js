@@ -17,7 +17,14 @@ const ProfilePage = () => {
     const user = useSelector((state)=>state.user);
     const collections = useSelector((state)=>state.collections.collections);
 
-    const AddCollection = (collection) => {
+    const deleteCollection = (event, collectionId) => {
+        event.stopPropagation();
+        axios.delete(`${process.env.REACT_APP_PATH}/api/collections/${collectionId}`).then(()=>{
+            dispatch(getCollections());
+        })
+    }
+
+    const addCollection = (collection) => {
         collection.authorId = user.uid;
         axios.post(`${process.env.REACT_APP_PATH}/api/collections`, {
             data: collection
@@ -33,7 +40,7 @@ const ProfilePage = () => {
             <CollectionDescriptionModal
                 show={show}
                 close={()=>{setShow(false)}}
-                send={AddCollection}
+                send={addCollection}
                 modalInfo={
                     {
                         title: "Add Collection"
@@ -48,7 +55,8 @@ const ProfilePage = () => {
                         onClick={()=>{setShow(true)}}>Add collection</Button>
             </div>
 
-            <CollectionsTable collections={collections}/>
+            <CollectionsTable collections={collections}
+                              deleteCollection={deleteCollection}/>
         </div>
     )
 }

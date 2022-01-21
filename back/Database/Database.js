@@ -38,5 +38,15 @@ const  UpdateItem = async (model,newValues, params) => {
         return err;
     }
 }
+const  DeleteItem = async (model, params) => {
+    try {
+        const delItem =  await model.destroy(params);
+        return delItem;
+    }
+    catch (err) {
+        return err;
+    }
+}
 
-module.exports = { database, SelectAllItems, SelectItem, InsertItem, UpdateItem}
+
+module.exports = { database, SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem}
