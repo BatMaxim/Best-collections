@@ -13,7 +13,7 @@ const DNDModal = ({show, close}) =>{
             </Modal.Header>
 
             <Modal.Body>
-                <Dropzone />
+                <Dropzone close={close}/>
             </Modal.Body>
 
             <Modal.Footer>
