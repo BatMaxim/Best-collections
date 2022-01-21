@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./firebaseAdmin");
 const path = require("path");
-const {getCollections,getCollection, addCollection} = require("./Database/Controllers/CollectionController");
+const {getCollections,getCollection, addCollection, updateCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
 const app = express();
 
@@ -71,6 +71,18 @@ app.post("/api/collections", (req, res)=>{
 app.get("/api/collection/:collectionId", (req, res)=>{
     getCollection(req.params.collectionId).then(collection=>{
         res.json(collection);
+    })
+})
+
+app.put("/api/collection/:collectionId", (req, res)=>{
+   const params = {
+       where:{
+           id:req.params.collectionId,
+       }
+   }
+    updateCollection(req.body, params).then(collection=>{
+        res.json(collection);
+
     })
 })
 
