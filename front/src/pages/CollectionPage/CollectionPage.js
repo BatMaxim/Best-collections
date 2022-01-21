@@ -3,10 +3,11 @@ import {useParams} from "react-router-dom";
 import "./CollectionPage.css";
 import CollectionDescription from "../../components/CollectionDescription/CollectionDescription ";
 import {useDispatch, useSelector} from "react-redux";
-import {getCollection} from "../../actions/currentCollectionActions";
+import {getCards, getCollection} from "../../actions/currentCollectionActions";
 import DNDModal from "../../components/Modals/DNDModal";
 import CollectionDescriptionModal from "../../components/Modals/CollectionDescriptionModal";
 import axios from "axios";
+import CardsTable from "../../components/CardsTable/CardsTable";
 
 const CollectionPage = () => {
     const [showIgmModal, setShowIgmModal] = useState(false);
@@ -21,8 +22,10 @@ const CollectionPage = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(getCollection(collectionId));
+        dispatch(getCards(collectionId));
     }, [])
     const collection = useSelector((state)=>state.collection.collection);
+    const cards = useSelector((state)=>state.collection.cards);
     return(
         <div>
             <DNDModal  show={showIgmModal}
@@ -45,6 +48,7 @@ const CollectionPage = () => {
             <CollectionDescription collection={collection}
                                    openImgModal={()=>{setShowIgmModal(true)}}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
+            <CardsTable items={cards}/>
         </div>
     )
 }

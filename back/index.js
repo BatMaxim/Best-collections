@@ -6,6 +6,7 @@ const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./
 const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
+const {getItems} = require("./Database/Controllers/ItemController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -102,6 +103,12 @@ app.get("/api/topics", (req, res)=>{
     getTopics().then(topics=>{
         res.json(topics);
     })
+})
+
+app.get("/api/cards/:collectionId", (req, res)=>{
+  getItems(req.params.collectionId).then(cards=>{
+      res.json(cards);
+  })
 })
 
 app.all("*", (req, res)=>{

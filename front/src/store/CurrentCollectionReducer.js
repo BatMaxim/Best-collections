@@ -1,7 +1,8 @@
-import {ADD_COLLECTION} from "./types/currentCollectionTypes"
+import {ADD_COLLECTION, ADD_CARDS} from "./types/currentCollectionTypes"
 
 const initialState = {
-    collection:{}
+    collection:{},
+    cards:[]
 }
 
 const CurrentCollectionReducer = (state = initialState, {payload, type})=>{
@@ -18,6 +19,11 @@ const CurrentCollectionReducer = (state = initialState, {payload, type})=>{
                     author: payload.author,
                 }
 
+            }
+        case ADD_CARDS:
+            return {
+                ...state,
+                cards: payload
             }
         default:
             return state;
