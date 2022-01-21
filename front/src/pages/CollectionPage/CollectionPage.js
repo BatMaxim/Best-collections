@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import "./CollectionPage.css";
 import CollectionDescription from "../../components/CollectionDescription/CollectionDescription ";
@@ -7,6 +7,7 @@ import {getCollection} from "../../actions/currentCollectionActions";
 import DNDModal from "../../components/Modals/DNDModal";
 
 const CollectionPage = () => {
+    const [show, setShow] = useState(false);
     let { collectionId } = useParams();
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -15,8 +16,10 @@ const CollectionPage = () => {
     const collection = useSelector((state)=>state.collection.collection);
     return(
         <div>
-            <DNDModal />
-            <CollectionDescription collection={collection}/>
+            <DNDModal  show={show}
+                       close={()=>{setShow(false)}}/>
+            <CollectionDescription collection={collection}
+                                   openModal={()=>{setShow(true)}}/>
         </div>
     )
 }

@@ -4,12 +4,12 @@ import {useSelector} from "react-redux";
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-const CollectionDescription = ({collection}) => {
+const CollectionDescription = ({collection, openModal}) => {
         const user = useSelector((state)=>state.user);
         return(
         <Card className="collection">
             <Card.Header className="collection__header">
-                <div className="collection__img-container">
+                <div className="collection__img-container" onClick={openModal}>
                     <img className="collection__img" src={collection.picture}/>
                     <>Collection: {collection.id}</>
                 </div>
