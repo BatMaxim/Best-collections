@@ -3,16 +3,22 @@ import {Button, Form, Modal} from "react-bootstrap"
 import {useDispatch, useSelector} from "react-redux";
 import {getTopics} from "../../actions/collectionsActions";
 
-const CollectionDescriptionModal = ({show, close, send, modalInfo}) =>{
+const CollectionDescriptionModal = ({show, close, send, modalInfo, collection}) =>{
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getTopics());
-    }, []);
-    const topics = useSelector((state)=>state.collections.topics);
-
-    const [name, setName] = useState('');
+    const [name, setName] = useState("");
     const [topicId, setTopicId] = useState(1);
     const [description, setDescription] = useState("")
+
+    useEffect(() => {
+        dispatch(getTopics());
+        setName(collection?.name ? collection?.name: "");
+        setTopicId(collection?.topicId ? collection?.topicId: 1);
+        setDescription(collection?.description ? collection?.description: "");
+    }, [collection]);
+
+    const topics = useSelector((state)=>state.collections.topics);
+
+
 
     const sendForm = (event) => {
         event.preventDefault();

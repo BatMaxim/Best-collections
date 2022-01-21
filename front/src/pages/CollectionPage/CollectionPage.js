@@ -5,9 +5,18 @@ import CollectionDescription from "../../components/CollectionDescription/Collec
 import {useDispatch, useSelector} from "react-redux";
 import {getCollection} from "../../actions/currentCollectionActions";
 import DNDModal from "../../components/Modals/DNDModal";
+import CollectionDescriptionModal from "../../components/Modals/CollectionDescriptionModal";
+import axios from "axios";
 
 const CollectionPage = () => {
-    const [show, setShow] = useState(false);
+    const [showIgmModal, setShowIgmModal] = useState(false);
+    const [showCollectionModal, setShowCollectionModal] = useState(false);
+    const updateCollection = (newValues) => {
+        axios.put(`${process.env.REACT_APP_PATH}/api/collections/${collection.id}`, newValues)
+                .then(()=>{
+                    dispatch(getCollection(collectionId));
+                })
+    }
     let { collectionId } = useParams();
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -16,13 +25,26 @@ const CollectionPage = () => {
     const collection = useSelector((state)=>state.collection.collection);
     return(
         <div>
-            <DNDModal  show={show}
+            <DNDModal  show={showIgmModal}
                        close={()=>{
-                           setShow(false);
+                           setShowIgmModal(false);
                            dispatch(getCollection(collectionId));
                        }}/>
+
+            <CollectionDescriptionModal show={showCollectionModal}
+                                        close={()=>{setShowCollectionModal(false)}}
+                                        modalInfo={
+                                            {
+                                                title: "Edit Collection"
+                                            }
+                                        }
+                                        collection={collection}
+                                        send={updateCollection}
+            />
+
             <CollectionDescription collection={collection}
-                                   openModal={()=>{setShow(true)}}/>
+                                   openImgModal={()=>{setShowIgmModal(true)}}
+                                   openCollectionModal={()=>{setShowCollectionModal(true)}}/>
         </div>
     )
 }
