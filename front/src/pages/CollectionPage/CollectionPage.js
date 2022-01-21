@@ -17,7 +17,10 @@ const CollectionPage = () => {
     return(
         <div>
             <DNDModal  show={show}
-                       close={()=>{setShow(false)}}/>
+                       close={()=>{
+                           setShow(false);
+                           dispatch(getCollection(collectionId));
+                       }}/>
             <CollectionDescription collection={collection}
                                    openModal={()=>{setShow(true)}}/>
         </div>

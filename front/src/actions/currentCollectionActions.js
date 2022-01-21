@@ -7,7 +7,7 @@ export const addCollection = (collection) => ({
 });
 
 export const getCollection =  (id) => async dispatch => {
-    let collection = await axios.get(`${process.env.REACT_APP_PATH}/api/collection/${id}`);
+    let collection = await axios.get(`${process.env.REACT_APP_PATH}/api/collections/${id}`);
     let author = await axios.get(`${process.env.REACT_APP_PATH}/api/users/${collection.data.authorId}`);
     collection.data.author ={
         id: author.data.uid,

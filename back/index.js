@@ -68,13 +68,13 @@ app.post("/api/collections", (req, res)=>{
     })
 })
 
-app.get("/api/collection/:collectionId", (req, res)=>{
+app.get("/api/collections/:collectionId", (req, res)=>{
     getCollection(req.params.collectionId).then(collection=>{
         res.json(collection);
     })
 })
 
-app.put("/api/collection/:collectionId", (req, res)=>{
+app.put("/api/collections/:collectionId", (req, res)=>{
    const params = {
        where:{
            id:req.params.collectionId,

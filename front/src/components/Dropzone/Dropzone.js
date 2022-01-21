@@ -3,6 +3,7 @@ import {useDropzone} from 'react-dropzone'
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "./Dropzone.css";
 import {useSelector} from "react-redux";
+import axios from "axios";
 
 function Dropzone({close}) {
     const storage = getStorage();
@@ -11,10 +12,13 @@ function Dropzone({close}) {
     const onDrop = useCallback(acceptedFile => {
         if(acceptedFile.length){
             uploadBytes(storageRef, acceptedFile.shift()).then((snapshot) => {
-                console.log(snapshot.metadata.fullPath);
                 getDownloadURL(ref(storage, snapshot.metadata.fullPath)).then(ref => {
-                    console.log(ref);
-                    close();
+                    axios.put(`${process.env.REACT_APP_PATH}/api/collections/${collection.id}`,{
+                        picture: ref,
+                    })
+                        .then(r => {
+                            close();
+                        })
                 })
 
             });
