@@ -8,6 +8,7 @@ import DNDModal from "../../components/Modals/DNDModal";
 import CollectionDescriptionModal from "../../components/Modals/CollectionDescriptionModal";
 import axios from "axios";
 import CardsTable from "../../components/CardsTable/CardsTable";
+import AddingField from "../../components/AddingField/AddingField";
 
 const CollectionPage = () => {
     const [showIgmModal, setShowIgmModal] = useState(false);
@@ -48,6 +49,7 @@ const CollectionPage = () => {
             <CollectionDescription collection={collection}
                                    openImgModal={()=>{setShowIgmModal(true)}}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
+            <AddingField />
             <CardsTable items={cards}/>
         </div>
     )
