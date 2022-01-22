@@ -20,6 +20,7 @@ const CollectionPage = () => {
                     dispatch(getCollection(collectionId));
                 })
     }
+
     let { collectionId } = useParams();
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -28,6 +29,19 @@ const CollectionPage = () => {
     }, [])
     const collection = useSelector((state)=>state.collection.collection);
     const cards = useSelector((state)=>state.collection.cards);
+
+    const addField = (name, type) => {
+        axios.post(`${process.env.REACT_APP_PATH}/api/fields/name`, {
+            name: name ? name: "New Field",
+            type: type,
+            collectionId: collection.id
+        }).then(
+            (data)=>{
+                console.log(data);
+            }
+        )
+    }
+
     return(
         <div>
             <DNDModal  show={showIgmModal}
@@ -50,7 +64,7 @@ const CollectionPage = () => {
             <CollectionDescription collection={collection}
                                    openImgModal={()=>{setShowIgmModal(true)}}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
-            <AddingField />
+            <AddingField addField={addField} />
             <CustomFields />
             <CardsTable items={cards}/>
         </div>

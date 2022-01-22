@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {FormControl, InputGroup, Button,Form} from "react-bootstrap";
 import "./AddingField.css"
-const AddingField = () => {
+const AddingField = ({addField}) => {
+    const [name, setName] = useState("");
+    const [type, setType] = useState("String");
+
     return(
         <InputGroup className="mb-3">
             <FormControl
@@ -9,14 +12,19 @@ const AddingField = () => {
                 placeholder="Name"
                 aria-label="Field name"
                 aria-describedby="basic-addon2"
+                value={name}
+                onChange={(event)=>setName(event.target.value)}
             />
-            <Form.Select className="adding-field__select">
-                <option>String</option>
-                <option>Text</option>
-                <option>Bool</option>
-                <option>Integer</option>
+            <Form.Select className="adding-field__select"
+                         value={type}
+                         onChange={(event)=>setType(event.target.value)}>
+                <option value="String">String</option>
+                <option value="Text">Text</option>
+                <option value="Bool">Bool</option>
+                <option value="Integer">Integer</option>
             </Form.Select>
-            <Button variant="outline-secondary" id="button-addon2">
+            <Button variant="outline-secondary"
+                    onClick={()=>{addField(name, type)}}>
                 Add
             </Button>
         </InputGroup>
