@@ -78,7 +78,8 @@ const CollectionPage = () => {
                           fieldActions={{
                               delete: deleteField,
                           }}/>
-            <CardsTable items={cards}/>
+            <CardsTable items={cards}
+                        customFields={fields}/>
         </div>
     )
 }
