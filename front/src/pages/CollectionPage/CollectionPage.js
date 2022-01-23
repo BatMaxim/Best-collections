@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import "./CollectionPage.css";
 import CollectionDescription from "../../components/CollectionDescription/CollectionDescription ";
 import {useDispatch, useSelector} from "react-redux";
-import {getCards, getCollection} from "../../actions/currentCollectionActions";
+import {getCards, getCollection, getFields} from "../../actions/currentCollectionActions";
 import DNDModal from "../../components/Modals/DNDModal";
 import CollectionDescriptionModal from "../../components/Modals/CollectionDescriptionModal";
 import axios from "axios";
@@ -26,9 +26,11 @@ const CollectionPage = () => {
     useEffect(()=>{
         dispatch(getCollection(collectionId));
         dispatch(getCards(collectionId));
+        dispatch(getFields(collectionId));
     }, [])
     const collection = useSelector((state)=>state.collection.collection);
     const cards = useSelector((state)=>state.collection.cards);
+    const fields = useSelector((state)=>state.collection.fields);
 
     const addField = (name, type) => {
         axios.post(`${process.env.REACT_APP_PATH}/api/fields/name`, {
@@ -36,8 +38,8 @@ const CollectionPage = () => {
             type: type,
             collectionId: collection.id
         }).then(
-            (data)=>{
-                console.log(data);
+            ()=>{
+                dispatch(getFields(collectionId));
             }
         )
     }
@@ -65,7 +67,7 @@ const CollectionPage = () => {
                                    openImgModal={()=>{setShowIgmModal(true)}}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
             <AddingField addField={addField} />
-            <CustomFields />
+            <CustomFields fields={fields}/>
             <CardsTable items={cards}/>
         </div>
     )

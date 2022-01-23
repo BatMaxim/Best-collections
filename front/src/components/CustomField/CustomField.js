@@ -8,8 +8,8 @@ import "./CustomField.css"
 const CustomField = ({field}) => {
     return(
         <ListGroup.Item className="custom-field">
-            <div>{field?.name}</div>
-            <div>{field?.type}</div>
+            <div>{field.name}</div>
+            <div>{field.type}</div>
             <div>
                 <ButtonGroup>
                     <Button variant="secondary"><FontAwesomeIcon icon={faEdit} /></Button>

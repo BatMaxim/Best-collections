@@ -1,4 +1,4 @@
-import {ADD_COLLECTION, ADD_CARDS} from "../store/types/currentCollectionTypes";
+import {ADD_COLLECTION, ADD_CARDS, ADD_FIELDS} from "../store/types/currentCollectionTypes";
 import axios from "axios";
 
 export const addCollection = (collection) => ({
@@ -9,6 +9,11 @@ export const addCollection = (collection) => ({
 export const addCards= (cards) => ({
     type: ADD_CARDS,
     payload: cards
+});
+
+export const addFields= (fields) => ({
+    type: ADD_FIELDS,
+    payload: fields
 });
 
 export const getCollection =  (id) => async dispatch => {
@@ -25,4 +30,9 @@ export const getCards =  (id) => async dispatch => {
     let cards = await axios.get(`${process.env.REACT_APP_PATH}/api/cards/${id}`);
 
     dispatch(addCards(cards.data));
+}
+
+export const getFields = (id) => async dispatch => {
+    let fields = await axios.get(`${process.env.REACT_APP_PATH}/api/fields/name/${id}`);
+    dispatch(addFields(fields.data));
 }

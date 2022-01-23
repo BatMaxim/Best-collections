@@ -1,9 +1,22 @@
-const {InsertItem} = require("../Database");
+const {InsertItem, SelectAllItems} = require("../Database");
 const FieldsNames = require("../Models/FieldsNames");
+const Topic = require("../Models/Topic");
+const Collection = require("../Models/Collection");
 
 const addFieldName = async (params) => {
     const fieldName = await InsertItem(FieldsNames, params);
     return fieldName;
 }
 
-module.exports = { addFieldName };
+const getFieldsNames = async (id) => {
+    const params = {
+        where:{
+            collectionId: id,
+        },
+    }
+    const fieldsNames = await SelectAllItems(FieldsNames, params);
+    return fieldsNames;
+}
+
+
+module.exports = { addFieldName, getFieldsNames};
