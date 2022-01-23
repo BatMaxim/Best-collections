@@ -8,7 +8,7 @@ const {getCollections,getCollection, addCollection, updateCollection, deleteColl
 const {getTopics} = require("./Database/Controllers/TopicController");
 const {getItems} = require("./Database/Controllers/ItemController");
 const {addFieldName, getFieldsNames, deleteFieldName} = require("./Database/Controllers/FieldsNamesController");
-const {getStrField} = require("./Database/Controllers/StrFieldController");
+const {getStrField, getIntField, getTextField, getBoolField} = require("./Database/Controllers/CustomFieldController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -113,10 +113,13 @@ app.get("/api/cards/:collectionId", (req, res)=>{
   })
 })
 
-app.get("/api/fields/values/:id", (req, res)=>{
-    getStrField(req.params.id).then(fields=>{
-        res.json(fields);
-    })
+app.get("/api/fields/values/:id", async (req, res)=>{
+    const strfields = await getStrField(req.params.id);
+    const intfields = await getIntField(req.params.id);
+    const textfields = await getTextField(req.params.id);
+    const boolfields = await getBoolField(req.params.id);
+
+    res.json([...strfields, ...intfields, ...textfields, ...boolfields]);
 })
 
 app.get("/api/fields/name/:collectionId", (req, res)=>{
