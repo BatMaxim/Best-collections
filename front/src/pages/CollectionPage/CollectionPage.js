@@ -43,6 +43,13 @@ const CollectionPage = () => {
             }
         )
     }
+    const deleteField = (id) => {
+        axios.delete(`${process.env.REACT_APP_PATH}/api/fields/name/${id}`).then(
+            ()=>{
+                dispatch(getFields(collectionId));
+            }
+        )
+    }
 
     return(
         <div>
@@ -67,7 +74,10 @@ const CollectionPage = () => {
                                    openImgModal={()=>{setShowIgmModal(true)}}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
             <AddingField addField={addField} />
-            <CustomFields fields={fields}/>
+            <CustomFields fields={fields}
+                          fieldActions={{
+                              delete: deleteField,
+                          }}/>
             <CardsTable items={cards}/>
         </div>
     )

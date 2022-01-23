@@ -5,7 +5,7 @@ import {faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons'
 
 import "./CustomField.css"
 
-const CustomField = ({field}) => {
+const CustomField = ({field, deleteField}) => {
     return(
         <ListGroup.Item className="custom-field">
             <div>{field.name}</div>
@@ -13,7 +13,7 @@ const CustomField = ({field}) => {
             <div>
                 <ButtonGroup>
                     <Button variant="secondary"><FontAwesomeIcon icon={faEdit} /></Button>
-                    <Button variant="danger"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+                    <Button variant="danger" onClick={()=>{deleteField(field.id)}}><FontAwesomeIcon icon={faTrashAlt} /></Button>
                 </ButtonGroup>
             </div>
         </ListGroup.Item>

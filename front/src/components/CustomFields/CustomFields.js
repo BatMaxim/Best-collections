@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Card, ListGroup} from "react-bootstrap";
 import CustomField from "../CustomField/CustomField";
-const CustomFields = ({fields}) => {
+const CustomFields = ({fields, fieldActions}) => {
     return(
         <Card>
             <Card.Header>
@@ -9,7 +9,10 @@ const CustomFields = ({fields}) => {
             </Card.Header>
             <ListGroup variant="flush">
                 {fields.map(field=>{
-                    return(<CustomField field={field} key={field.id}/>)
+                    return(<CustomField field={field}
+                                        key={field.id}
+                                        deleteField={fieldActions.delete}
+                    />)
                 })
                 }
 

@@ -7,7 +7,7 @@ const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
 const {getItems} = require("./Database/Controllers/ItemController");
-const {addFieldName, getFieldsNames} = require("./Database/Controllers/FieldsNamesController");
+const {addFieldName, getFieldsNames, deleteFieldName} = require("./Database/Controllers/FieldsNamesController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -121,6 +121,17 @@ app.get("/api/fields/name/:collectionId", (req, res)=>{
 app.post("/api/fields/name", (req, res)=>{
     addFieldName(req.body).then(fieldName=>{
         res.json(fieldName);
+    })
+})
+
+app.delete("/api/fields/name/:fieldId", (req, res)=>{
+    const params = {
+        where:{
+            id:req.params.fieldId,
+        }
+    }
+    deleteFieldName(params).then(field=>{
+        res.json(field);
     })
 })
 
