@@ -11,6 +11,7 @@ import CardsTable from "../../components/CardsTable/CardsTable";
 import AddingField from "../../components/AddingField/AddingField";
 import CustomFields from "../../components/CustomFields/CustomFields";
 import {Button} from "react-bootstrap";
+import ItemModal from "../../components/Modals/ItemModal";
 
 const CollectionPage = () => {
     const [showIgmModal, setShowIgmModal] = useState(false);
@@ -66,6 +67,11 @@ const CollectionPage = () => {
 
     return(
         <div>
+            <ItemModal modalInfo={
+                {
+                    title: "Add Item"
+                }
+            }/>
             <DNDModal  show={showIgmModal}
                        close={()=>{
                            setShowIgmModal(false);
