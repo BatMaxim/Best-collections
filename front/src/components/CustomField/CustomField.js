@@ -9,8 +9,8 @@ const CustomField = ({field, deleteField}) => {
     return(
         <ListGroup.Item className="custom-field">
             <div>{field.name}</div>
-            <div>{field.type}</div>
-            <div>
+            <div className="custom-field__type">{field.type}</div>
+            <div className="custom-field__btn-container">
                 <ButtonGroup>
                     <Button variant="secondary"><FontAwesomeIcon icon={faEdit} /></Button>
                     <Button variant="danger" onClick={()=>{deleteField(field.id)}}><FontAwesomeIcon icon={faTrashAlt} /></Button>

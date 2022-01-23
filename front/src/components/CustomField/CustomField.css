@@ -1,5 +1,11 @@
 .custom-field{
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr
+}
+
+.custom-field__btn-container {
+    text-align: right;
+}
+.custom-field__type {
+    text-align: center;
 }
