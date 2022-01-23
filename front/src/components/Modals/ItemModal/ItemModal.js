@@ -3,21 +3,15 @@ import {Button, Form, Modal} from "react-bootstrap"
 import {useDispatch, useSelector} from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 import "./ItemModel.css";
-const ItemModal = ({ show, modalInfo, suggestions }) =>{
-    console.log(suggestions)
+import ModalCustomField from "./ModalCustomField/ModalCustomField";
+const ItemModal = ({ show, close, modalInfo, suggestions, customFields }) =>{
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [tags, setTags] = useState([]);
     const [description, setDescription] = useState("")
 
     const sendForm = (event) => {
-        // event.preventDefault();
-        // send({
-        //     name:name.length? name : "New Collection",
-        //     topicId:topicId,
-        //     description:description
-        // })
-        // close();
+
     }
 
     const addTag = (tag) => {
@@ -31,8 +25,8 @@ const ItemModal = ({ show, modalInfo, suggestions }) =>{
     }
 
     return(
-        <Modal show={true}
-               onHide={()=>{}}
+        <Modal show={show}
+               onHide={close}
                backdrop="static"
                keyboard={false}>
             <Modal.Header closeButton>
@@ -65,10 +59,13 @@ const ItemModal = ({ show, modalInfo, suggestions }) =>{
                                     }/>
 
                     </Form.Group>
+                    {customFields.map(customField=>{
+                        return <ModalCustomField key={customField.id} customField={customField}/>
+                    })}
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={()=>{}}>Close</Button>
+                    <Button variant="secondary" onClick={close}>Close</Button>
                     <Button variant="primary" type="submit">{modalInfo.title}</Button>
                 </Modal.Footer>
             </Form>

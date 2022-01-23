@@ -11,12 +11,13 @@ import CardsTable from "../../components/CardsTable/CardsTable";
 import AddingField from "../../components/AddingField/AddingField";
 import CustomFields from "../../components/CustomFields/CustomFields";
 import {Button} from "react-bootstrap";
-import ItemModal from "../../components/Modals/ItemModal";
+import ItemModal from "../../components/Modals/ItemModal/ItemModal";
 import {getTags} from "../../actions/tagsActions";
 
 const CollectionPage = () => {
     const [showIgmModal, setShowIgmModal] = useState(false);
     const [showCollectionModal, setShowCollectionModal] = useState(false);
+    const [showItemModal, setShowItemModal] = useState(false);
     const updateCollection = (newValues) => {
         axios.put(`${process.env.REACT_APP_PATH}/api/collections/${collection.id}`, newValues)
                 .then(()=>{
@@ -75,7 +76,10 @@ const CollectionPage = () => {
                                 title: "Add Item"
                             }
                         }
+                       show={showItemModal}
+                       close={()=>{setShowItemModal(false)}}
                        suggestions={tags}
+                       customFields={fields}
             />
             <DNDModal  show={showIgmModal}
                        close={()=>{
@@ -105,7 +109,7 @@ const CollectionPage = () => {
                           }}/>
             <div className="collections__cards-header">
                 <h4>Items:</h4>
-                <Button variant="secondary">Add Item</Button>
+                <Button variant="secondary" onClick={()=>{setShowItemModal(true)}}>Add Item</Button>
             </div>
             <CardsTable items={cards}
                         customFields={fields}/>
