@@ -3,7 +3,8 @@ import {Button, Form, Modal} from "react-bootstrap"
 import {useDispatch, useSelector} from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 import "./ItemModel.css";
-const ItemModal = ({ show, modalInfo }) =>{
+const ItemModal = ({ show, modalInfo, suggestions }) =>{
+    console.log(suggestions)
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [tags, setTags] = useState([]);
@@ -52,12 +53,14 @@ const ItemModal = ({ show, modalInfo }) =>{
                         <ReactTags tags={tags}
                                    allowNew={true}
                                    onAddition={(tag)=>{addTag(tag)}}
+                                   suggestions={suggestions}
                                    onDelete={(id)=>{deleteTag(id)}}
                                     classNames={
                                         {
                                             searchInput: 'form-control item-modal__tags',
                                             selectedTag: 'badge bg-secondary',
-                                            selected: 'item-model__tags-container'
+                                            selected: 'item-model__tags-container',
+                                            suggestions: 'item-model__suggestions',
                                         }
                                     }/>
 

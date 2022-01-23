@@ -9,6 +9,7 @@ const {getTopics} = require("./Database/Controllers/TopicController");
 const {getItems} = require("./Database/Controllers/ItemController");
 const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
 const {getStrField, getIntField, getTextField, getBoolField} = require("./Database/Controllers/CustomFieldController");
+const {getTags} = require("./Database/Controllers/TagController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -156,6 +157,13 @@ app.delete("/api/fields/name/:fieldId", (req, res)=>{
     }
     deleteFieldName(params).then(field=>{
         res.json(field);
+    })
+})
+
+
+app.get("/api/tags", (req, res)=>{
+    getTags().then(tags=>{
+        res.json(tags);
     })
 })
 

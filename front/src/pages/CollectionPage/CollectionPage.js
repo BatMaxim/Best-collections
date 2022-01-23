@@ -12,6 +12,7 @@ import AddingField from "../../components/AddingField/AddingField";
 import CustomFields from "../../components/CustomFields/CustomFields";
 import {Button} from "react-bootstrap";
 import ItemModal from "../../components/Modals/ItemModal";
+import {getTags} from "../../actions/tagsActions";
 
 const CollectionPage = () => {
     const [showIgmModal, setShowIgmModal] = useState(false);
@@ -30,10 +31,12 @@ const CollectionPage = () => {
         dispatch(deleteCards());
         dispatch(getCards(collectionId));
         dispatch(getFields(collectionId));
+        dispatch(getTags());
     }, [])
     const collection = useSelector((state)=>state.collection.collection);
     const cards = useSelector((state)=>state.collection.cards);
     const fields = useSelector((state)=>state.collection.fields);
+    const tags = useSelector((state)=>state.tags.tags);
 
     const addField = (name, type) => {
         axios.post(`${process.env.REACT_APP_PATH}/api/fields/name`, {
@@ -68,10 +71,12 @@ const CollectionPage = () => {
     return(
         <div>
             <ItemModal modalInfo={
-                {
-                    title: "Add Item"
-                }
-            }/>
+                            {
+                                title: "Add Item"
+                            }
+                        }
+                       suggestions={tags}
+            />
             <DNDModal  show={showIgmModal}
                        close={()=>{
                            setShowIgmModal(false);

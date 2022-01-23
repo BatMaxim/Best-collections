@@ -7,3 +7,10 @@
     flex-wrap: wrap;
     gap: 5px;
 }
+.item-model__suggestions{
+    margin-top: 10px;
+}
+.item-model__suggestions ul {
+    list-style-type: none;
+    padding: 0;
+}
