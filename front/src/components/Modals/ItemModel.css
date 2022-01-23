@@ -1,0 +1,9 @@
+.item-modal__tags{
+    width: 100% !important;
+}
+.item-model__tags-container{
+    margin: 2px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}

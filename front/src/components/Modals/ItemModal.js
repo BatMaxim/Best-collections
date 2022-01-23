@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap"
 import {useDispatch, useSelector} from "react-redux";
-import {getTopics} from "../../actions/collectionsActions";
-
+import ReactTags from "react-tag-autocomplete";
+import "./ItemModel.css";
 const ItemModal = ({ show, modalInfo }) =>{
     const dispatch = useDispatch();
     const [name, setName] = useState("");
-    const [topicId, setTopicId] = useState(1);
+    const [tags, setTags] = useState([]);
     const [description, setDescription] = useState("")
 
     const sendForm = (event) => {
@@ -17,6 +17,16 @@ const ItemModal = ({ show, modalInfo }) =>{
         //     description:description
         // })
         // close();
+    }
+
+    const addTag = (tag) => {
+        setTags([...tags, tag]);
+    }
+
+    const deleteTag = (id) => {
+        let newTags = [...tags];
+        newTags.splice(id, 1);
+        setTags(newTags);
     }
 
     return(
@@ -39,7 +49,17 @@ const ItemModal = ({ show, modalInfo }) =>{
 
                     <Form.Group className="mb-3" controlId="topic">
                         <Form.Label>Tags</Form.Label>
-                        <Form.Select />
+                        <ReactTags tags={tags}
+                                   allowNew={true}
+                                   onAddition={(tag)=>{addTag(tag)}}
+                                   onDelete={(id)=>{deleteTag(id)}}
+                                    classNames={
+                                        {
+                                            searchInput: 'form-control item-modal__tags',
+                                            selectedTag: 'badge bg-secondary',
+                                            selected: 'item-model__tags-container'
+                                        }
+                                    }/>
 
                     </Form.Group>
                 </Modal.Body>
