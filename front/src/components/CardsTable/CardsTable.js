@@ -10,7 +10,7 @@ const CardsTable = ({items, customFields}) =>{
                 <th>Id</th>
                 <th>Name</th>
                 {customFields.map(field=>{
-                    
+
                     return(<th key={field.id}>{field.name}</th>)
                 })}
                 <th>Action</th>

@@ -1,4 +1,4 @@
-const {InsertItem, SelectAllItems, DeleteItem} = require("../Database");
+const {InsertItem, SelectAllItems, DeleteItem, UpdateItem} = require("../Database");
 const FieldsNames = require("../Models/FieldsNames");
 const Topic = require("../Models/Topic");
 const Collection = require("../Models/Collection");
@@ -13,6 +13,11 @@ const deleteFieldName = async (params) => {
     return fieldName;
 }
 
+const updateFieldName = async (newValues, params) => {
+    const fieldName = await UpdateItem(FieldsNames, newValues, params);
+    return fieldName;
+}
+
 const getFieldsNames = async (id) => {
     const params = {
         where:{
@@ -24,4 +29,4 @@ const getFieldsNames = async (id) => {
 }
 
 
-module.exports = { addFieldName, getFieldsNames, deleteFieldName};
+module.exports = { addFieldName, getFieldsNames, deleteFieldName, updateFieldName};

@@ -52,6 +52,17 @@ const CollectionPage = () => {
         )
     }
 
+    const EditField = (id, newName) => {
+        axios.put(`${process.env.REACT_APP_PATH}/api/fields/name/${id}`,{
+            name: newName
+        }).then(
+            ()=>{
+                dispatch(getFields(collectionId));
+            }
+        )
+        console.log(id, newName)
+    }
+
     return(
         <div>
             <DNDModal  show={showIgmModal}
@@ -78,6 +89,7 @@ const CollectionPage = () => {
             <CustomFields fields={fields}
                           fieldActions={{
                               delete: deleteField,
+                              edit:EditField,
                           }}/>
             <CardsTable items={cards}
                         customFields={fields}/>

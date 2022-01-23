@@ -2,10 +2,14 @@
     display: grid !important;
     grid-template-columns: 1fr 1fr 1fr
 }
+.custom-field div{
+    display: flex;
+    align-items: center;
+}
 
 .custom-field__btn-container {
-    text-align: right;
+    justify-content: flex-end;
 }
 .custom-field__type {
-    text-align: center;
+    justify-content: center;
 }

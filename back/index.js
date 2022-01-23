@@ -7,7 +7,7 @@ const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
 const {getItems} = require("./Database/Controllers/ItemController");
-const {addFieldName, getFieldsNames, deleteFieldName} = require("./Database/Controllers/FieldsNamesController");
+const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
 const {getStrField, getIntField, getTextField, getBoolField} = require("./Database/Controllers/CustomFieldController");
 const app = express();
 
@@ -128,9 +128,23 @@ app.get("/api/fields/name/:collectionId", (req, res)=>{
     })
 })
 
-app.post("/api/fields/name", (req, res)=>{
+app.post("/api/fields/name/", (req, res)=>{
     addFieldName(req.body).then(fieldName=>{
         res.json(fieldName);
+    })
+})
+
+app.put("/api/fields/name/:fieldId", (req, res)=>{
+    // addFieldName(req.body).then(fieldName=>{
+    //     res.json(fieldName);
+    // })
+    const params = {
+        where:{
+            id:req.params.fieldId,
+        }
+    }
+    updateFieldName(req.body, params).then(field=>{
+        res.json(field);
     })
 })
 

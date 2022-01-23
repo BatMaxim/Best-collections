@@ -12,6 +12,7 @@ const CustomFields = ({fields, fieldActions}) => {
                     return(<CustomField field={field}
                                         key={field.id}
                                         deleteField={fieldActions.delete}
+                                        editField={fieldActions.edit}
                     />)
                 })
                 }
