@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import "./CollectionPage.css";
 import CollectionDescription from "../../components/CollectionDescription/CollectionDescription ";
 import {useDispatch, useSelector} from "react-redux";
-import {getCards, getCollection, getFields} from "../../actions/currentCollectionActions";
+import {deleteCards, getCards, getCollection, getFields} from "../../actions/currentCollectionActions";
 import DNDModal from "../../components/Modals/DNDModal";
 import CollectionDescriptionModal from "../../components/Modals/CollectionDescriptionModal";
 import axios from "axios";
@@ -25,6 +25,7 @@ const CollectionPage = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(getCollection(collectionId));
+        dispatch(deleteCards());
         dispatch(getCards(collectionId));
         dispatch(getFields(collectionId));
     }, [])

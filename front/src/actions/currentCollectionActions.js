@@ -1,4 +1,4 @@
-import {ADD_COLLECTION, ADD_CARDS, ADD_FIELDS} from "../store/types/currentCollectionTypes";
+import {ADD_COLLECTION, ADD_CARD, DELETE_CARDS, ADD_FIELDS} from "../store/types/currentCollectionTypes";
 import axios from "axios";
 
 export const addCollection = (collection) => ({
@@ -6,9 +6,13 @@ export const addCollection = (collection) => ({
     payload: collection
 });
 
-export const addCards= (cards) => ({
-    type: ADD_CARDS,
-    payload: cards
+export const addCard= (card) => ({
+    type: ADD_CARD,
+    payload: card
+});
+
+export const deleteCards = () => ({
+    type: DELETE_CARDS,
 });
 
 export const addFields= (fields) => ({
@@ -28,8 +32,11 @@ export const getCollection =  (id) => async dispatch => {
 
 export const getCards =  (id) => async dispatch => {
     let cards = await axios.get(`${process.env.REACT_APP_PATH}/api/cards/${id}`);
-
-    dispatch(addCards(cards.data));
+    for (let i=0; i<cards.data.length; i++){
+        const card = cards.data[i];
+        card.customFields = (await axios.get(`${process.env.REACT_APP_PATH}/api/fields/values/${card.id}`)).data;
+        dispatch(addCard(card));
+    }
 }
 
 export const getFields = (id) => async dispatch => {

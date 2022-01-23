@@ -7,7 +7,14 @@ const CardItem = ({item, customFields}) => {
             <td>{item.id}</td>
             <td>{item.name}</td>
             {customFields.map(field=>{
-                return(<td>{field.id}</td>)
+                return(
+                    <td key={field.id}>
+                        {
+                            item.customFields.find(data => data.fieldsname.id===field.id) ?
+                            item.customFields.find(data => data.fieldsname.id===field.id).value: "-"
+                        }
+                    </td>
+                )
             })}
             <td className="collection-item__btn-container">
                 <Button variant="danger">
