@@ -4,14 +4,30 @@ import {useDispatch, useSelector} from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 import "./ItemModel.css";
 import ModalCustomField from "./ModalCustomField/ModalCustomField";
+import {setItemCustomFields} from "../../../actions/currentItemActions";
 const ItemModal = ({ show, close, modalInfo, suggestions, customFields }) =>{
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [tags, setTags] = useState([]);
     const [description, setDescription] = useState("")
+    const fields = useSelector((state)=>state.currentItem.currentFields);
+    useEffect(()=>{
+        const newFields = {};
+        customFields.forEach(field=>{
+            newFields[field.id] = "";
+        })
+        dispatch(setItemCustomFields(newFields));
+    },[customFields])
+
 
     const sendForm = (event) => {
 
+    }
+
+    const setCustomFields = (id, value) => {
+        const newFields = {...fields}
+        newFields[id] = value;
+        dispatch(setItemCustomFields(newFields));
     }
 
     const addTag = (tag) => {
@@ -60,7 +76,11 @@ const ItemModal = ({ show, close, modalInfo, suggestions, customFields }) =>{
 
                     </Form.Group>
                     {customFields.map(customField=>{
-                        return <ModalCustomField key={customField.id} customField={customField}/>
+                        return <ModalCustomField key={customField.id}
+                                                 customField={customField}
+                                                 value={fields[customField.id]}
+                                                 setValue={setCustomFields}
+                        />
                     })}
                 </Modal.Body>
 
