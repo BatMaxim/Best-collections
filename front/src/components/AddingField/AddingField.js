@@ -6,7 +6,7 @@ const AddingField = ({addField}) => {
     const [type, setType] = useState("String");
 
     return(
-        <InputGroup className="mb-3">
+        <InputGroup className="mb-3" className="adding-field">
             <FormControl
                 className="adding-field__input"
                 placeholder="Name"

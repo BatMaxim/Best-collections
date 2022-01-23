@@ -10,6 +10,7 @@ import axios from "axios";
 import CardsTable from "../../components/CardsTable/CardsTable";
 import AddingField from "../../components/AddingField/AddingField";
 import CustomFields from "../../components/CustomFields/CustomFields";
+import {Button} from "react-bootstrap";
 
 const CollectionPage = () => {
     const [showIgmModal, setShowIgmModal] = useState(false);
@@ -85,12 +86,16 @@ const CollectionPage = () => {
             <CollectionDescription collection={collection}
                                    openImgModal={()=>{setShowIgmModal(true)}}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
-            <AddingField addField={addField} />
+            <AddingField addField={addField}/>
             <CustomFields fields={fields}
                           fieldActions={{
                               delete: deleteField,
                               edit:EditField,
                           }}/>
+            <div className="collections__cards-header">
+                <h4>Items:</h4>
+                <Button variant="secondary">Add Item</Button>
+            </div>
             <CardsTable items={cards}
                         customFields={fields}/>
         </div>
