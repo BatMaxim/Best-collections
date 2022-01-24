@@ -1,4 +1,4 @@
-import {SET_ITEM_CUSTOM_FIELDS} from "../store/types/currentItemTypes";
+import {SET_ITEM_CUSTOM_FIELDS} from "../store/types/currentFieldsTypes";
 
 
 export const setItemCustomFields = (fields) => ({

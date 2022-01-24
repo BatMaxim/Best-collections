@@ -4,12 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import ReactTags from "react-tag-autocomplete";
 import "./ItemModel.css";
 import ModalCustomField from "./ModalCustomField/ModalCustomField";
-import {setItemCustomFields} from "../../../actions/currentItemActions";
+import {setItemCustomFields} from "../../../actions/currenFieldsActions";
 const ItemModal = ({ show, close, modalInfo, suggestions, customFields, send}) =>{
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [tags, setTags] = useState([]);
-    const fields = useSelector((state)=>state.currentItem.currentFields);
+    const fields = useSelector((state)=>state.currentFields.currentFields);
     useEffect(()=>{
         const newFields = {};
         customFields.forEach(field=>{

@@ -1,4 +1,4 @@
-import { SET_ITEM_CUSTOM_FIELDS } from "./types/currentItemTypes"
+import { SET_ITEM_CUSTOM_FIELDS } from "./types/currentFieldsTypes"
 
 const initialState = {
     name: "",
@@ -6,7 +6,7 @@ const initialState = {
     currentFields: {},
 }
 
-const CurrentItemReducer = (state = initialState, {payload, type})=>{
+const CurrentFieldsReducer = (state = initialState, {payload, type})=>{
     switch (type){
         case SET_ITEM_CUSTOM_FIELDS:
             return {
@@ -17,4 +17,4 @@ const CurrentItemReducer = (state = initialState, {payload, type})=>{
             return state;
     }
 }
-export default CurrentItemReducer;
+export default CurrentFieldsReducer;

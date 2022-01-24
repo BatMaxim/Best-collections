@@ -6,7 +6,7 @@ import UsersReducer from "./UsersReducer";
 import CollectionsReducer from "./CollectionsReducer";
 import CurrentCollectionReducer from "./CurrentCollectionReducer";
 import TagsReducer from "./TagsReducer";
-import CurrentItemReducer from "./CurrentItemReducer";
+import CurrentFieldsReducer from "./CurrentFieldsReducer";
 
 const rootReducer = combineReducers( {
     user: UserReducer,
@@ -14,7 +14,7 @@ const rootReducer = combineReducers( {
     collections: CollectionsReducer,
     collection: CurrentCollectionReducer,
     tags: TagsReducer,
-    currentItem: CurrentItemReducer,
+    currentFields: CurrentFieldsReducer,
 })
 export const store = createStore(
     rootReducer,
