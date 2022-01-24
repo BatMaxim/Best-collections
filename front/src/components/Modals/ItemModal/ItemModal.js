@@ -5,11 +5,10 @@ import ReactTags from "react-tag-autocomplete";
 import "./ItemModel.css";
 import ModalCustomField from "./ModalCustomField/ModalCustomField";
 import {setItemCustomFields} from "../../../actions/currentItemActions";
-const ItemModal = ({ show, close, modalInfo, suggestions, customFields }) =>{
+const ItemModal = ({ show, close, modalInfo, suggestions, customFields, send}) =>{
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [tags, setTags] = useState([]);
-    const [description, setDescription] = useState("")
     const fields = useSelector((state)=>state.currentItem.currentFields);
     useEffect(()=>{
         const newFields = {};
@@ -21,7 +20,8 @@ const ItemModal = ({ show, close, modalInfo, suggestions, customFields }) =>{
 
 
     const sendForm = (event) => {
-
+        event.preventDefault();
+        send(name, tags, fields)
     }
 
     const setCustomFields = (id, value) => {
@@ -86,7 +86,8 @@ const ItemModal = ({ show, close, modalInfo, suggestions, customFields }) =>{
 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={close}>Close</Button>
-                    <Button variant="primary" type="submit">{modalInfo.title}</Button>
+                    <Button variant="primary"
+                            type="submit">{modalInfo.title}</Button>
                 </Modal.Footer>
             </Form>
         </Modal>

@@ -69,6 +69,18 @@ const CollectionPage = () => {
         console.log(id, newName)
     }
 
+    const AddItem = (name, tags, fieldsValues) => {
+        axios.post(`${process.env.REACT_APP_PATH}/api/cards/`,{
+            collectionId:collection.id,
+            name: name
+        }).then(data=>{
+            const id = data?.data.id;
+            console.log(id);
+            
+        })
+        // console.log(collection.id, name, tags, fieldsValues);
+    }
+
     return(
         <div>
             <ItemModal modalInfo={
@@ -80,6 +92,7 @@ const CollectionPage = () => {
                        close={()=>{setShowItemModal(false)}}
                        suggestions={tags}
                        customFields={fields}
+                       send={AddItem}
             />
             <DNDModal  show={showIgmModal}
                        close={()=>{

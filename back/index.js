@@ -6,7 +6,7 @@ const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./
 const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
-const {getItems} = require("./Database/Controllers/ItemController");
+const {getItems, addItem, deleteItem} = require("./Database/Controllers/ItemController");
 const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
 const {getStrField, getIntField, getTextField, getBoolField} = require("./Database/Controllers/CustomFieldController");
 const {getTags} = require("./Database/Controllers/TagController");
@@ -91,7 +91,6 @@ app.put("/api/collections/:collectionId", (req, res)=>{
 })
 
 app.delete("/api/collections/:collectionId", (req, res)=>{
-    console.log(req.params.collectionId)
     const params = {
         where:{
             id:req.params.collectionId,
@@ -112,6 +111,23 @@ app.get("/api/cards/:collectionId", (req, res)=>{
   getItems(req.params.collectionId).then(cards=>{
       res.json(cards);
   })
+})
+
+app.post("/api/cards", (req, res)=>{
+    addItem(req.body).then(item=>{
+        res.json(item);
+    })
+})
+
+app.delete("/api/cards/:itemId", (req, res)=>{
+    const params = {
+        where:{
+            id:req.params.itemId,
+        }
+    }
+    deleteItem(params).then(item=>{
+        res.json(item);
+    })
 })
 
 app.get("/api/fields/values/:id", async (req, res)=>{
