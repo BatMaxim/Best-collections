@@ -1,9 +1,11 @@
 import React from "react";
 import {Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 const CardItem = ({item, customFields, DeleteItem}) => {
+    const navigate = useNavigate();
     return(
-        <tr>
+        <tr onClick={()=>{navigate(`/item/${item.id}`)}}>
             <td>{item.id}</td>
             <td>{item.name}</td>
             {customFields.map(field=>{
@@ -17,7 +19,7 @@ const CardItem = ({item, customFields, DeleteItem}) => {
                 )
             })}
             <td className="collection-item__btn-container">
-                <Button variant="danger" onClick={()=>{DeleteItem(item.id)}}>
+                <Button variant="danger" onClick={(event)=>{DeleteItem(event, item.id)}}>
                     Delete
                 </Button>
             </td>

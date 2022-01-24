@@ -101,7 +101,8 @@ const CollectionPage = () => {
         dispatch(getTags());
     }
 
-    const DeleteItem = (id) => {
+    const DeleteItem = (event, id) => {
+        event.stopPropagation();
         axios.delete(`${process.env.REACT_APP_PATH}/api/cards/${id}`).then(()=>{
             dispatch(deleteCards());
             dispatch(getCards(collectionId));
