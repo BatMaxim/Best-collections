@@ -143,11 +143,11 @@ const CollectionPage = () => {
                                    openImgModal={()=>{setShowIgmModal(true)}}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
             <AddingField addField={addField}/>
-            <CustomFields fields={fields}
+            {fields.length>0 &&  <CustomFields fields={fields}
                           fieldActions={{
                               delete: deleteField,
                               edit:EditField,
-                          }}/>
+                          }}/>}
             <div className="collections__cards-header">
                 <h4>Items:</h4>
                 <Button variant="secondary" onClick={()=>{setShowItemModal(true)}}>Add Item</Button>
