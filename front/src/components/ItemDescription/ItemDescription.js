@@ -1,14 +1,20 @@
 import React from "react";
-import {Badge, Card, ListGroup} from "react-bootstrap";
+import {Badge, Button, Card, ListGroup} from "react-bootstrap";
 import CustomFieldInItem from "../CustomFieldInItem";
 import "./ItemDescription.css";
 
 const ItemDescription = ({item}) =>{
     return(
         <Card className="item-description">
-            <Card.Header>
-               Item {item.id}
+
+            <Card.Header  className="item-description__header">
+                <div>
+                    Item {item.id}
+                </div>
+                 <Button variant="secondary" >Edit</Button>
             </Card.Header>
+
+
             <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
                 <Card.Text>Collection: {item.collection.name}</Card.Text>

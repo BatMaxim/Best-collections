@@ -1,6 +1,13 @@
 .item-description{
     margin: 10px 0;
 }
+
+.item-description__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .item-description__tags{
     margin: 10px 0;
     display: flex;
