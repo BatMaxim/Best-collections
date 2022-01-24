@@ -38,6 +38,7 @@ const  UpdateItem = async (model,newValues, params) => {
         return err;
     }
 }
+
 const  DeleteItem = async (model, params) => {
     try {
         const delItem =  await model.destroy(params);
@@ -48,5 +49,15 @@ const  DeleteItem = async (model, params) => {
     }
 }
 
+const  InsertItems = async (model, params) => {
+    try {
+        const newItem =  await model.bulkCreate(params);
+        return newItem;
+    }
+    catch (err) {
+        return err;
+    }
+}
 
-module.exports = { database, SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem}
+
+module.exports = { database, SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem, InsertItems}

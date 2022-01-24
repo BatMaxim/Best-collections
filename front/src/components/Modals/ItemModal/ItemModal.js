@@ -30,8 +30,9 @@ const ItemModal = ({ show, close, modalInfo, suggestions, customFields, send}) =
         dispatch(setItemCustomFields(newFields));
     }
 
-    const addTag = (tag) => {
-        setTags([...tags, tag]);
+    const addTag = (newTag) => {
+        if(!tags.find(tag=>tag.name === newTag.name))
+            setTags([...tags, newTag]);
     }
 
     const deleteTag = (id) => {

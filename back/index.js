@@ -8,8 +8,9 @@ const {getCollections,getCollection, addCollection, updateCollection, deleteColl
 const {getTopics} = require("./Database/Controllers/TopicController");
 const {getItems, addItem, deleteItem} = require("./Database/Controllers/ItemController");
 const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
-const {getStrField, getIntField, getTextField, getBoolField} = require("./Database/Controllers/CustomFieldController");
-const {getTags} = require("./Database/Controllers/TagController");
+const {getStrField, getIntField, getTextField, getBoolField, addFields} = require("./Database/Controllers/CustomFieldController");
+const {getTags, AddTags} = require("./Database/Controllers/TagController");
+const {AddTagsItems} = require("./Database/Controllers/TagItemController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -113,10 +114,38 @@ app.get("/api/cards/:collectionId", (req, res)=>{
   })
 })
 
-app.post("/api/cards", (req, res)=>{
-    addItem(req.body).then(item=>{
-        res.json(item);
+app.post("/api/cards", async (req, res)=>{
+    const newItem = {
+        name:req.body.name,
+        collectionId: req.body.collectionId,
+    }
+    const getValues = (values) => values.map(value => ({itemId: item.dataValues.id,...value}));
+    const oldTags = req.body.tags.filter(tag=>tag.id)
+    let newTags = req.body.tags.filter(tag=>!tag.id)
+    const item = await addItem(newItem);
+    await addFields("Bool", getValues(req.body.BoolValues))
+    await addFields("Text", getValues(req.body.TextValues))
+    await addFields("String", getValues(req.body.StringValues))
+    await addFields("Integer", getValues(req.body.IntegerValues))
+    const tags = AddTags(newTags);
+
+    tags.then(data=>data.map(el=>el.dataValues)
+    ).then((data)=>{
+       const allTags = [...data, ...oldTags].map(el=>{
+           return{
+               tagId: el.id,
+               name: el.name,
+               itemId:item.dataValues.id,
+           }
+       })
+        return allTags
+    }).then(data=>{
+        AddTagsItems(data)
+    }).then(()=>{
+        res.json({item: "ok"});
     })
+
+
 })
 
 app.delete("/api/cards/:itemId", (req, res)=>{
@@ -139,6 +168,13 @@ app.get("/api/fields/values/:id", async (req, res)=>{
     res.json([...strfields, ...intfields, ...textfields, ...boolfields]);
 })
 
+app.post("/api/fields/values/:type", async (req, res)=>{
+    const fields = await addFields(req.params.type, req.body)
+
+     res.json(fields);
+})
+
+
 app.get("/api/fields/name/:collectionId", (req, res)=>{
     getFieldsNames(req.params.collectionId).then(fieldsNames=>{
         res.json(fieldsNames);
@@ -152,9 +188,6 @@ app.post("/api/fields/name/", (req, res)=>{
 })
 
 app.put("/api/fields/name/:fieldId", (req, res)=>{
-    // addFieldName(req.body).then(fieldName=>{
-    //     res.json(fieldName);
-    // })
     const params = {
         where:{
             id:req.params.fieldId,

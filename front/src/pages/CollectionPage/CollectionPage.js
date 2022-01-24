@@ -69,16 +69,36 @@ const CollectionPage = () => {
         console.log(id, newName)
     }
 
-    const AddItem = (name, tags, fieldsValues) => {
-        axios.post(`${process.env.REACT_APP_PATH}/api/cards/`,{
-            collectionId:collection.id,
-            name: name
-        }).then(data=>{
-            const id = data?.data.id;
-            console.log(id);
-            
+    const getCustomFieldsValues = (type, fieldsValues, itemId) =>{
+        const Fields = fields.filter(el=>el.type==type);
+        const Values = Fields.map(el=>{
+            return {
+                fieldsnameId: el.id,
+                value:type==="Bool" || type==="Integer" ? +fieldsValues[el.id]: fieldsValues[el.id],
+            };
         })
-        // console.log(collection.id, name, tags, fieldsValues);
+        return Values;
+    }
+
+    const AddItem = async (name, tags, fieldsValues) => {
+        const BoolValues = getCustomFieldsValues("Bool", fieldsValues);
+        const TextValues = getCustomFieldsValues("Text", fieldsValues);
+        const StringValues = getCustomFieldsValues("String", fieldsValues);
+        const IntegerValues = getCustomFieldsValues("Integer", fieldsValues);
+        const newItem = await axios.post(`${process.env.REACT_APP_PATH}/api/cards/`,{
+            collectionId:collection.id,
+            name: name,
+            BoolValues: BoolValues,
+            TextValues: TextValues,
+            StringValues: StringValues,
+            IntegerValues: IntegerValues,
+            tags: tags,
+
+        })
+        setShowItemModal(false);
+        dispatch(deleteCards());
+        dispatch(getCards(collectionId));
+        dispatch(getTags());
     }
 
     return(
