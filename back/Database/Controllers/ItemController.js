@@ -1,6 +1,6 @@
 const Item = require("../Models/Item");
 const Collection = require("../Models/Collection");
-const {SelectAllItems, InsertItem, DeleteItem} = require("../Database");
+const {SelectAllItems, InsertItem, DeleteItem, SelectItem} = require("../Database");
 
 
 const getItems = async (collectionId) => {
@@ -15,6 +15,18 @@ const getItems = async (collectionId) => {
     return items;
 }
 
+const getItem = async (id) => {
+    const item = await SelectItem(Item,{
+        where:{
+            id: id,
+        },
+        include: {
+            model: Collection,
+            required: true
+        }});
+    return item;
+}
+
 const addItem = async (params) => {
     const item = await InsertItem(Item, params);
     return item;
@@ -25,4 +37,4 @@ const deleteItem = async (params) => {
     return item;
 }
 
-module.exports = { getItems, addItem, deleteItem };
+module.exports = { getItems, addItem, deleteItem, getItem };

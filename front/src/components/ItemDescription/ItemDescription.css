@@ -1,0 +1,9 @@
+.item-description{
+    margin: 10px 0;
+}
+.item-description__tags{
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

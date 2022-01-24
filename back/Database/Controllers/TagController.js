@@ -3,7 +3,7 @@ const {SelectAllItems, InsertItems} = require("../Database");
 const StrField = require("../Models/StrField");
 
 
-const getTags = async (collectionId) => {
+const getTags = async () => {
     const tags = await SelectAllItems(Tag);
     return tags;
 }

@@ -6,11 +6,11 @@ const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./
 const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
-const {getItems, addItem, deleteItem} = require("./Database/Controllers/ItemController");
+const {getItems, addItem, deleteItem, getItem} = require("./Database/Controllers/ItemController");
 const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
 const {getStrField, getIntField, getTextField, getBoolField, addFields} = require("./Database/Controllers/CustomFieldController");
 const {getTags, AddTags} = require("./Database/Controllers/TagController");
-const {AddTagsItems} = require("./Database/Controllers/TagItemController");
+const {AddTagsItems, getTagsItems} = require("./Database/Controllers/TagItemController");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -114,6 +114,13 @@ app.get("/api/cards/:collectionId", (req, res)=>{
   })
 })
 
+app.get("/api/card/:cardId", (req, res)=>{
+    getItem(req.params.cardId).then(cards=>{
+        res.json(cards);
+    })
+})
+
+
 app.post("/api/cards", async (req, res)=>{
     const newItem = {
         name:req.body.name,
@@ -150,8 +157,8 @@ app.post("/api/cards", async (req, res)=>{
 
 app.delete("/api/cards/:itemId", (req, res)=>{
     const params = {
-        where:{
-            id:req.params.itemId,
+        where: {
+            id: req.params.itemId
         }
     }
     deleteItem(params).then(item=>{
@@ -212,6 +219,12 @@ app.delete("/api/fields/name/:fieldId", (req, res)=>{
 
 app.get("/api/tags", (req, res)=>{
     getTags().then(tags=>{
+        res.json(tags);
+    })
+})
+
+app.get("/api/tags/:itemId", (req, res)=>{
+    getTagsItems(req.params.itemId).then(tags=>{
         res.json(tags);
     })
 })

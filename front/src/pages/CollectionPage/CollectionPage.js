@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import "./CollectionPage.css";
-import CollectionDescription from "../../components/CollectionDescription/CollectionDescription ";
+import CollectionDescription from "../../components/CollectionDescription/CollectionDescription";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteCards, getCards, getCollection, getFields} from "../../actions/currentCollectionActions";
 import DNDModal from "../../components/Modals/DNDModal";

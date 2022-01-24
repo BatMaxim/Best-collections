@@ -1,0 +1,26 @@
+import {ADD_MAIN_FIELDS,ADD_TAGS,ADD_CUSTOM_FIELDS } from "../store/types/currentItemTypes";
+import axios from "axios";
+
+export const addMainItemFields = (item) => ({
+    type: ADD_MAIN_FIELDS,
+    payload: item,
+});
+
+export const addItemTags = (tags) => ({
+    type: ADD_TAGS,
+    payload: tags,
+});
+
+export const addCustomItemFields = (fields) => ({
+    type: ADD_CUSTOM_FIELDS,
+    payload: fields,
+});
+
+export const getItem =  (id) => async dispatch => {
+    const item = await axios.get(`${process.env.REACT_APP_PATH}/api/card/${id}`);
+    dispatch(addMainItemFields(item.data));
+    const tags = await axios.get(`${process.env.REACT_APP_PATH}/api/tags/${id}`);
+    dispatch(addItemTags(tags.data));
+    const fields = await axios.get(`${process.env.REACT_APP_PATH}/api/fields/values/${item.data.id}`);
+    dispatch(addCustomItemFields(fields.data));
+}
