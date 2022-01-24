@@ -1,7 +1,7 @@
 import React from "react";
 import {Button} from "react-bootstrap";
 
-const CardItem = ({item, customFields}) => {
+const CardItem = ({item, customFields, DeleteItem}) => {
     return(
         <tr>
             <td>{item.id}</td>
@@ -17,7 +17,7 @@ const CardItem = ({item, customFields}) => {
                 )
             })}
             <td className="collection-item__btn-container">
-                <Button variant="danger">
+                <Button variant="danger" onClick={()=>{DeleteItem(item.id)}}>
                     Delete
                 </Button>
             </td>

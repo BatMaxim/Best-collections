@@ -101,6 +101,14 @@ const CollectionPage = () => {
         dispatch(getTags());
     }
 
+    const DeleteItem = (id) => {
+        axios.delete(`${process.env.REACT_APP_PATH}/api/cards/${id}`).then(()=>{
+            dispatch(deleteCards());
+            dispatch(getCards(collectionId));
+            dispatch(getTags());
+        })
+    }
+
     return(
         <div>
             <ItemModal modalInfo={
@@ -145,7 +153,8 @@ const CollectionPage = () => {
                 <Button variant="secondary" onClick={()=>{setShowItemModal(true)}}>Add Item</Button>
             </div>
             <CardsTable items={cards}
-                        customFields={fields}/>
+                        customFields={fields}
+                        DeleteItem={DeleteItem}/>
         </div>
     )
 }
