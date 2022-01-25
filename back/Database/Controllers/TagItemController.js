@@ -1,5 +1,5 @@
 const TagItem = require("../Models/TagItem");
-const {SelectAllItems, InsertItems} = require("../Database");
+const {SelectAllItems, InsertItems,DeleteItem} = require("../Database");
 const Tag = require("../Models/Tag");
 
 const getTagsItems = async (id) => {
@@ -22,4 +22,14 @@ const AddTagsItems = async (params) => {
     return tags;
 }
 
-module.exports = { AddTagsItems, getTagsItems};
+const DeleteTagsItems = async (id) => {
+    const params= {
+        where: {
+            id: id
+        }
+    }
+    const tags = await DeleteItem(TagItem, params);
+    return tags;
+}
+
+module.exports = { AddTagsItems, getTagsItems, DeleteTagsItems};

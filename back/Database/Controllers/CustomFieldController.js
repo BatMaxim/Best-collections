@@ -1,4 +1,4 @@
-const {SelectAllItems, InsertItems} = require("../Database");
+const {SelectAllItems, InsertItems, UpdateItem} = require("../Database");
 const StrField = require("../Models/StrField");
 const BoolField = require("../Models/BoolField");
 const IntField = require("../Models/IntField");
@@ -30,6 +30,19 @@ const addFields = (type, params) => {
     }
 }
 
+const updateField = (type, newValues, params) => {
+    switch (type) {
+        case "String":
+            return UpdateItem(StrField, newValues, params)
+        case "Bool":
+            return UpdateItem(BoolField, newValues, params)
+        case "Text":
+            return UpdateItem(TextField, newValues, params)
+        case "Integer":
+            return UpdateItem(IntField, newValues, params)
+    }
+}
+
 const getStrField = (id) => {
     return getField(StrField, id)
 }
@@ -43,4 +56,4 @@ const getTextField = (id) => {
     return getField(TextField, id)
 }
 
-module.exports = {getStrField, getBoolField, getIntField, getTextField, addFields};
+module.exports = {getStrField, getBoolField, getIntField, getTextField, addFields, updateField};

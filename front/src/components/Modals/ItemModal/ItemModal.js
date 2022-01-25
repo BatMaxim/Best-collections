@@ -5,19 +5,26 @@ import ReactTags from "react-tag-autocomplete";
 import "./ItemModel.css";
 import ModalCustomField from "./ModalCustomField/ModalCustomField";
 import {setItemCustomFields} from "../../../actions/currenFieldsActions";
-const ItemModal = ({ show, close, modalInfo, suggestions, customFields, send}) =>{
+const ItemModal = ({ show, close, modalInfo, suggestions, customFields, send, item}) =>{
+
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [tags, setTags] = useState([]);
     const fields = useSelector((state)=>state.currentFields.currentFields);
+
     useEffect(()=>{
         const newFields = {};
         customFields.forEach(field=>{
             newFields[field.id] = "";
         })
+        item?.customFields.forEach(el=>{
+            newFields[el.fieldsname.id] = el.value;
+        })
         dispatch(setItemCustomFields(newFields));
-    },[customFields])
+        setName(item?.name);
+        setTags(item?.tags.map(tag=>tag.tag)? item?.tags.map(tag=>tag.tag): []);
 
+    },[customFields])
 
     const sendForm = (event) => {
         event.preventDefault();

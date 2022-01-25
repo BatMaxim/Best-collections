@@ -6,11 +6,12 @@ const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./
 const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
-const {getItems, addItem, deleteItem, getItem} = require("./Database/Controllers/ItemController");
+const {getItems, addItem, deleteItem, getItem, updateItem} = require("./Database/Controllers/ItemController");
 const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
-const {getStrField, getIntField, getTextField, getBoolField, addFields} = require("./Database/Controllers/CustomFieldController");
+const {getStrField, getIntField, getTextField, getBoolField, addFields, updateField} = require("./Database/Controllers/CustomFieldController");
 const {getTags, AddTags} = require("./Database/Controllers/TagController");
-const {AddTagsItems, getTagsItems} = require("./Database/Controllers/TagItemController");
+const {AddTagsItems, getTagsItems, DeleteTagsItems} = require("./Database/Controllers/TagItemController");
+const {DeleteItem} = require("./Database/Database");
 const app = express();
 
 const PORT = process.env.PORT || 3001
@@ -128,13 +129,13 @@ app.post("/api/cards", async (req, res)=>{
     }
     const getValues = (values) => values.map(value => ({itemId: item.dataValues.id,...value}));
     const oldTags = req.body.tags.filter(tag=>tag.id)
-    let newTags = req.body.tags.filter(tag=>!tag.id)
+    const newTags = req.body.tags.filter(tag=>!tag.id)
     const item = await addItem(newItem);
     await addFields("Bool", getValues(req.body.BoolValues))
     await addFields("Text", getValues(req.body.TextValues))
     await addFields("String", getValues(req.body.StringValues))
     await addFields("Integer", getValues(req.body.IntegerValues))
-    const tags = AddTags(newTags);
+    const tags =  AddTags(newTags);
 
     tags.then(data=>data.map(el=>el.dataValues)
     ).then((data)=>{
@@ -151,8 +152,58 @@ app.post("/api/cards", async (req, res)=>{
     }).then(()=>{
         res.json({item: "ok"});
     })
+})
+const updateAndAddFields = async (fields, fieldsType, itemId) => {
+    const getValues = (values) => values.map(value => ({itemId: itemId,...value}));
+    const oldFields = fields.filter(field=>field.id)
+    const newFields = fields.filter(field=>!field.id)
+    await addFields(fieldsType, getValues(newFields));
 
+    for(let i=0; i< oldFields.length; i++){
+            await updateField(fieldsType, {value: oldFields[i].value}, {
+                where:{
+                    id:oldFields[i].id
+                }});
+         }
+}
 
+app.put("/api/cards",async (req, res)=>{
+    const getNewTags = (UsersTags, tags) => UsersTags.filter(tag=>  !tags.find(el=>el.tag.id===tag.id));
+    const getDeletedTags = (UsersTags, tags) =>tags.filter(tag=>!UsersTags.find(el=>el.id===tag.tag.id));
+
+    const item = req.body;
+    await updateItem({
+        name: item.name
+    },{
+        where:{
+            id: item.id
+        }
+    })
+    const tags = await getTagsItems(item.id);
+    const newTags = getNewTags(item.tags, tags);
+    const deletedTags = getDeletedTags(item.tags, tags);
+    const unknownTags =newTags.filter(tag=>!tag.id)
+    const knownTags =newTags.filter(tag=>tag.id)
+    const addedTags = await AddTags(unknownTags);
+    const allNewTags = [...knownTags, ...addedTags].map(el=>{
+        return{
+            tagId: el.id,
+            name: el.name,
+            itemId:item.id,
+        }
+    })
+    await AddTagsItems(allNewTags)
+
+   for(let i=0; i< deletedTags.length; i++){
+       await DeleteTagsItems(deletedTags[i].id);
+    }
+
+    await updateAndAddFields(item.BoolValues, "Bool", item.id)
+    await updateAndAddFields(item.StringValues, "String", item.id)
+    await updateAndAddFields(item.TextValues, "Text", item.id)
+    await updateAndAddFields(item.IntegerValues, "Integer", item.id)
+
+    res.json({item: "ok"});
 })
 
 app.delete("/api/cards/:itemId", (req, res)=>{
