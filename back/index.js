@@ -135,23 +135,17 @@ app.post("/api/cards", async (req, res)=>{
     await addFields("Text", getValues(req.body.TextValues))
     await addFields("String", getValues(req.body.StringValues))
     await addFields("Integer", getValues(req.body.IntegerValues))
-    const tags =  AddTags(newTags);
+    const tags = await AddTags(newTags);
+    const allTags = [...tags, ...oldTags].map(el=>{
+               return{
+                   tagId: el.id,
+                   name: el.name,
+                   itemId:item.dataValues.id,
+               }
+           })
 
-    tags.then(data=>data.map(el=>el.dataValues)
-    ).then((data)=>{
-       const allTags = [...data, ...oldTags].map(el=>{
-           return{
-               tagId: el.id,
-               name: el.name,
-               itemId:item.dataValues.id,
-           }
-       })
-        return allTags
-    }).then(data=>{
-        AddTagsItems(data)
-    }).then(()=>{
-        res.json({item: "ok"});
-    })
+    await AddTagsItems(allTags)
+    res.json({item: "ok"});
 })
 const updateAndAddFields = async (fields, fieldsType, itemId) => {
     const getValues = (values) => values.map(value => ({itemId: itemId,...value}));
