@@ -1,4 +1,4 @@
-import {ADD_MAIN_FIELDS,ADD_TAGS,ADD_CUSTOM_FIELDS } from "../store/types/currentItemTypes";
+import {ADD_MAIN_FIELDS,ADD_ITEM_TAGS,ADD_CUSTOM_FIELDS } from "../store/types/currentItemTypes";
 import axios from "axios";
 
 export const addMainItemFields = (item) => ({
@@ -7,7 +7,7 @@ export const addMainItemFields = (item) => ({
 });
 
 export const addItemTags = (tags) => ({
-    type: ADD_TAGS,
+    type: ADD_ITEM_TAGS,
     payload: tags,
 });
 

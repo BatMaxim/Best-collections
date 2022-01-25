@@ -3,7 +3,7 @@ import {Badge, Button, Card, ListGroup} from "react-bootstrap";
 import CustomFieldInItem from "../CustomFieldInItem";
 import "./ItemDescription.css";
 
-const ItemDescription = ({item}) =>{
+const ItemDescription = ({item, showModal}) =>{
     return(
         <Card className="item-description">
 
@@ -11,7 +11,7 @@ const ItemDescription = ({item}) =>{
                 <div>
                     Item {item.id}
                 </div>
-                 <Button variant="secondary" >Edit</Button>
+                 <Button variant="secondary" onClick={showModal} >Edit</Button>
             </Card.Header>
 
 
@@ -31,7 +31,7 @@ const ItemDescription = ({item}) =>{
                 <ListGroup variant="flush">
                     {
                         item.customFields.map(customField=>{
-                            return(<CustomFieldInItem key={customField.id} field={customField}/>)
+                            return(<CustomFieldInItem field={customField}/>)
                         })
                     }
                 </ListGroup>
