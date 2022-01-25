@@ -2,8 +2,10 @@ import React from "react";
 import {Badge, Button, Card, ListGroup} from "react-bootstrap";
 import CustomFieldInItem from "./CustomFieldInItem";
 import "./ItemDescription.css";
+import {useNavigate} from "react-router-dom";
 
 const ItemDescription = ({item, showModal}) =>{
+    const navigate = useNavigate();
     return(
         <Card className="item-description">
 
@@ -17,7 +19,7 @@ const ItemDescription = ({item, showModal}) =>{
 
             <Card.Body>
                 <Card.Title>{item.name}</Card.Title>
-                <Card.Text>Collection: {item.collection.name}</Card.Text>
+                <Card.Text onClick={()=>{navigate(`/collection/${item.collection.id}`)}}>Collection: {item.collection.name}</Card.Text>
 
                 <Card.Subtitle>Tags: </Card.Subtitle>
                 <div className="item-description__tags">
