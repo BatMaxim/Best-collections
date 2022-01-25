@@ -9,6 +9,7 @@ const CustomFieldInItem = ({field}) => {
     const fieldType = field.fieldsname.type;
 
     const renderCusomField = () => {
+        if(field.value === '') return (<></>);
         switch (fieldType){
             case "Bool":
                 return (

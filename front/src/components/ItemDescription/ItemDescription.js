@@ -1,6 +1,6 @@
 import React from "react";
 import {Badge, Button, Card, ListGroup} from "react-bootstrap";
-import CustomFieldInItem from "../CustomFieldInItem";
+import CustomFieldInItem from "./CustomFieldInItem";
 import "./ItemDescription.css";
 
 const ItemDescription = ({item, showModal}) =>{
