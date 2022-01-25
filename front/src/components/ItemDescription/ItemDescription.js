@@ -23,7 +23,7 @@ const ItemDescription = ({item}) =>{
                 <div className="item-description__tags">
                     {
                         item.tags.map(tag=>{
-                            return( <Badge bg="secondary">{tag.tag?.name}</Badge>)
+                            return( <Badge key={tag.tag?.id} bg="secondary">{tag.tag?.name}</Badge>)
                         })
                     }
                 </div>
@@ -31,7 +31,7 @@ const ItemDescription = ({item}) =>{
                 <ListGroup variant="flush">
                     {
                         item.customFields.map(customField=>{
-                            return(<CustomFieldInItem field={customField}/>)
+                            return(<CustomFieldInItem key={customField.id} field={customField}/>)
                         })
                     }
                 </ListGroup>
