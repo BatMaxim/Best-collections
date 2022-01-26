@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ItemDescription from "../../components/ItemDescription/ItemDescription";
 import {useDispatch, useSelector} from "react-redux";
-import {getItem} from "../../actions/currentItemActions";
+import {addComments, getItem} from "../../actions/currentItemActions";
 import ItemModal from "../../components/Modals/ItemModal/ItemModal";
 import {getTags} from "../../actions/tagsActions";
 import {getFields} from "../../actions/currentCollectionActions";
@@ -31,7 +31,7 @@ const ItemPage = () =>{
     useEffect(() => {
         socket.emit("USER_ONLINE", {itemId: itemId, user: user.userName});
         socket.on("SET_ALL_COMMENTS", data=>{
-            console.log(data);
+            dispatch(addComments(data));
             }
         );
         return () => {
