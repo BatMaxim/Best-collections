@@ -5,7 +5,7 @@ import "./LogInPage.css"
 const LogInPage = () =>{
     const handleLogin = (email, password)=> {
         const auth = getAuth();
-         return signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password)
     }
     return(
         <div className="log-in__container">

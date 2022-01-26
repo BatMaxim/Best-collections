@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./firebaseAdmin");
+const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser, checkToken} = require("./firebaseAdmin");
 const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
@@ -32,7 +32,11 @@ app.use(bodyParser.json());
 app.use(express.static(`build`));
 
 
-
+app.get("/api/login", (req, res)=>{
+    checkToken(req.headers["authorization"]).then(data=>{
+        res.json(data);
+    });
+})
 
 app.get("/api/users", (req, res)=>{
     getAllUsers()

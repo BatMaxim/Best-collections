@@ -24,14 +24,11 @@ const updateUser = (uid, properties)=>{
 
 }
 
-const checkToken = (idToken) =>{
-    admin.auth().verifyIdToken(idToken).then((decodedToken) => {
-        const uid = decodedToken.uid;
-        console.log(uid);
-    })
-        .catch((error) => {
-            console.log(error);
-        });
+const checkToken = async (idToken) =>{
+    const decodedToken= await admin.auth().verifyIdToken(idToken);
+    const customToken = await admin.auth().createCustomToken(decodedToken.uid)
+    return customToken;
+
 }
 
 const setAdminRole = (uid, adminRole) =>{
