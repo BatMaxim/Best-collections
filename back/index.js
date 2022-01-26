@@ -1,6 +1,8 @@
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require('body-parser');
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 const cors = require("cors");
 const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser} = require("./firebaseAdmin");
 const path = require("path");
@@ -12,7 +14,14 @@ const {getStrField, getIntField, getTextField, getBoolField, addFields, updateFi
 const {getTags, AddTags} = require("./Database/Controllers/TagController");
 const {AddTagsItems, getTagsItems, DeleteTagsItems} = require("./Database/Controllers/TagItemController");
 const {DeleteItem} = require("./Database/Database");
+
 const app = express();
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, { cors: {
+        origin: ['http://localhost:3000']
+    } });
+
 
 const PORT = process.env.PORT || 3001
 
@@ -20,6 +29,9 @@ const PORT = process.env.PORT || 3001
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(`build`));
+
+
+
 
 app.get("/api/users", (req, res)=>{
     getAllUsers()
@@ -278,5 +290,16 @@ app.all("*", (req, res)=>{
     res.sendFile(path.join(__dirname, "build", "index.html"))
 })
 
+io.on('connection', (socket) => {
 
-app.listen(PORT, ()=>{console.log("Started")});
+    socket.on("USER_ONLINE", data=>{
+        socket.join(data.itemId);
+    });
+
+    socket.on("LEAVE_ROOM", data=>{
+        socket.leave(data.itemId);
+    });
+
+});
+
+httpServer.listen(PORT, ()=>{console.log("Started")});

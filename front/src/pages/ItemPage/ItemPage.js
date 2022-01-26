@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ItemDescription from "../../components/ItemDescription/ItemDescription";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,24 +6,39 @@ import {getItem} from "../../actions/currentItemActions";
 import ItemModal from "../../components/Modals/ItemModal/ItemModal";
 import {getTags} from "../../actions/tagsActions";
 import {getFields} from "../../actions/currentCollectionActions";
-import {setItemCustomFields} from "../../actions/currenFieldsActions";
 import axios from "axios";
+import {SocketContext} from "../../socket";
 
 const ItemPage = () =>{
     const [showItemModal, setShowItemModal] = useState(false);
     let { itemId } = useParams();
     const dispatch = useDispatch();
+    const user = useSelector((state)=>state.user);
     const item = useSelector((state)=>state.currentItem);
     const tags = useSelector((state)=>state.tags.tags);
     const fields = useSelector((state)=>state.collection.fields);
+
+    const socket = useContext(SocketContext);
+    const [joined, setJoined] = useState(false);
+    const handleInviteAccepted = useCallback(() => {
+        setJoined(true);
+    }, []);
 
     useEffect(()=>{
         dispatch(getItem(itemId))
         dispatch(getTags());
     },[])
+
     useEffect(()=>{
         dispatch(getFields(item.collection.id));
     },[item])
+
+    useEffect(() => {
+        socket.emit("USER_ONLINE", {itemId: itemId, user: user.userName});
+        return () => {
+            socket.emit("LEAVE_ROOM", {itemId: itemId, user: user.userName});
+        };
+    }, [socket, handleInviteAccepted, user]);
 
     const getCustomFieldsValues = (type, fieldsValues, itemId) =>{
         const Fields = fields.filter(el=>el.type==type);
