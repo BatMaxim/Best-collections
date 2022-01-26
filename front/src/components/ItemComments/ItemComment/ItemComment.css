@@ -1,0 +1,10 @@
+.item-comment__message
+{
+    margin-left: 10px;
+}
+
+.item-comment__date
+{
+    font-size: 14px;
+    text-align: right;
+}

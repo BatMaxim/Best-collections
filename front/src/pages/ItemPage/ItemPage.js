@@ -8,7 +8,9 @@ import {getTags} from "../../actions/tagsActions";
 import {getFields} from "../../actions/currentCollectionActions";
 import axios from "axios";
 import {SocketContext} from "../../socket";
-
+import ItemComments from "../../components/ItemComments/ItemComments";
+import "./ItemPage.css"
+import CommentsForm from "../../components/CommentsForm/CommentsForm";
 const ItemPage = () =>{
     const [showItemModal, setShowItemModal] = useState(false);
     let { itemId } = useParams();
@@ -87,6 +89,8 @@ const ItemPage = () =>{
                        item={item}
                        send={EditItem}/>
             <ItemDescription item={item} showModal={()=>{setShowItemModal(true)}}/>
+            <h3 className="item-page__comments">Comments: </h3>
+            <ItemComments comments={item.comments}/>
         </>
     )
 }
