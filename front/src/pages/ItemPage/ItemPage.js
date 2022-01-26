@@ -17,12 +17,7 @@ const ItemPage = () =>{
     const item = useSelector((state)=>state.currentItem);
     const tags = useSelector((state)=>state.tags.tags);
     const fields = useSelector((state)=>state.collection.fields);
-
     const socket = useContext(SocketContext);
-    const [joined, setJoined] = useState(false);
-    const handleInviteAccepted = useCallback(() => {
-        setJoined(true);
-    }, []);
 
     useEffect(()=>{
         dispatch(getItem(itemId))
@@ -35,10 +30,14 @@ const ItemPage = () =>{
 
     useEffect(() => {
         socket.emit("USER_ONLINE", {itemId: itemId, user: user.userName});
+        socket.on("SET_ALL_COMMENTS", data=>{
+            console.log(data);
+            }
+        );
         return () => {
             socket.emit("LEAVE_ROOM", {itemId: itemId, user: user.userName});
         };
-    }, [socket, handleInviteAccepted, user]);
+    }, [socket]);
 
     const getCustomFieldsValues = (type, fieldsValues, itemId) =>{
         const Fields = fields.filter(el=>el.type==type);

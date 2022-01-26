@@ -14,6 +14,7 @@ const {getStrField, getIntField, getTextField, getBoolField, addFields, updateFi
 const {getTags, AddTags} = require("./Database/Controllers/TagController");
 const {AddTagsItems, getTagsItems, DeleteTagsItems} = require("./Database/Controllers/TagItemController");
 const {DeleteItem} = require("./Database/Database");
+const {getComments} = require("./Database/Controllers/CommentController");
 
 const app = express();
 
@@ -294,6 +295,14 @@ io.on('connection', (socket) => {
 
     socket.on("USER_ONLINE", data=>{
         socket.join(data.itemId);
+        const params = {
+            where:{
+                itemId: data.itemId
+            }
+        }
+        getComments(params).then(data=>{
+            socket.emit("SET_ALL_COMMENTS", data)
+        })
     });
 
     socket.on("LEAVE_ROOM", data=>{
