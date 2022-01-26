@@ -1,4 +1,4 @@
-import {ADD_MAIN_FIELDS,ADD_ITEM_TAGS,ADD_CUSTOM_FIELDS,ADD_COMMENTS} from "../store/types/currentItemTypes";
+import {ADD_MAIN_FIELDS,ADD_ITEM_TAGS,ADD_CUSTOM_FIELDS,ADD_COMMENTS, ADD_COMMENT} from "../store/types/currentItemTypes";
 import axios from "axios";
 
 export const addMainItemFields = (item) => ({
@@ -15,6 +15,11 @@ export const addComments = (comments) => ({
     type: ADD_COMMENTS,
     payload: comments,
 });
+export const addComment = (comment) => ({
+    type: ADD_COMMENT,
+    payload: comment,
+});
+
 
 export const addCustomItemFields = (fields) => ({
     type: ADD_CUSTOM_FIELDS,

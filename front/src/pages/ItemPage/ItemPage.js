@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ItemDescription from "../../components/ItemDescription/ItemDescription";
 import {useDispatch, useSelector} from "react-redux";
-import {addComments, getItem} from "../../actions/currentItemActions";
+import {addComment, addComments, getItem} from "../../actions/currentItemActions";
 import ItemModal from "../../components/Modals/ItemModal/ItemModal";
 import {getTags} from "../../actions/tagsActions";
 import {getFields} from "../../actions/currentCollectionActions";
@@ -36,10 +36,17 @@ const ItemPage = () =>{
             dispatch(addComments(data));
             }
         );
+        socket.on("NEW_COMMENT", data=>{
+                console.log(data);
+                dispatch(addComment(data));
+            }
+        );
         return () => {
             socket.emit("LEAVE_ROOM", {itemId: itemId, user: user.userName});
         };
     }, [socket]);
+
+
 
     const getCustomFieldsValues = (type, fieldsValues, itemId) =>{
         const Fields = fields.filter(el=>el.type==type);
@@ -75,6 +82,11 @@ const ItemPage = () =>{
         })
     }
 
+    const sendComment = ( message ) => {
+        if(message.trim())
+            socket.emit("SEND_COMMENT", {itemId: itemId, message:message, sender: user.userName});
+    }
+
     return(
         <>
             <ItemModal modalInfo={
@@ -91,7 +103,7 @@ const ItemPage = () =>{
             <ItemDescription item={item} showModal={()=>{setShowItemModal(true)}}/>
             <h3 className="item-page__comments">Comments: </h3>
             <ItemComments comments={item.comments}/>
-            <CommentsForm />
+            <CommentsForm sendComment={sendComment}/>
         </>
     )
 }

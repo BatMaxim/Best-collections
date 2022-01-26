@@ -1,4 +1,4 @@
-import {ADD_MAIN_FIELDS, ADD_ITEM_TAGS, ADD_CUSTOM_FIELDS, ADD_COMMENTS } from "./types/currentItemTypes"
+import {ADD_MAIN_FIELDS, ADD_ITEM_TAGS, ADD_CUSTOM_FIELDS, ADD_COMMENTS,ADD_COMMENT} from "./types/currentItemTypes"
 
 const initialState = {
     id: "",
@@ -32,6 +32,11 @@ const CurrentItemReducer = (state = initialState, {payload, type})=>{
             return {
                 ...state,
                 comments: payload
+            }
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comments: [...state.comments, payload]
             }
         default:
             return state;

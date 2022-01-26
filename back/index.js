@@ -14,7 +14,7 @@ const {getStrField, getIntField, getTextField, getBoolField, addFields, updateFi
 const {getTags, AddTags} = require("./Database/Controllers/TagController");
 const {AddTagsItems, getTagsItems, DeleteTagsItems} = require("./Database/Controllers/TagItemController");
 const {DeleteItem} = require("./Database/Database");
-const {getComments} = require("./Database/Controllers/CommentController");
+const {getComments, AddComment} = require("./Database/Controllers/CommentController");
 
 const app = express();
 
@@ -307,6 +307,19 @@ io.on('connection', (socket) => {
 
     socket.on("LEAVE_ROOM", data=>{
         socket.leave(data.itemId);
+    });
+
+    socket.on("SEND_COMMENT", data=>{
+        const newComment = {
+            ...data,
+            date:Date.now(),
+        }
+
+        AddComment(newComment).then(comment=>{
+            console.log(`${comment.itemId}`)
+            socket.emit("NEW_COMMENT", comment);
+            socket.to(comment.itemId).emit("NEW_COMMENT", comment);
+        })
     });
 
 });

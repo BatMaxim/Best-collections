@@ -2,6 +2,16 @@ import React from "react";
 import {Card} from "react-bootstrap";
 import "./ItemComment.css"
 const ItemComment = ({comment}) =>{
+    const date = new Date(comment.date);
+
+    const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        timezone: 'UTC',
+        hour: 'numeric',
+        minute: 'numeric',
+    };
     return(
 
         <Card  body className="item-comment">
@@ -10,7 +20,7 @@ const ItemComment = ({comment}) =>{
                 {comment.message}
             </Card.Text>
             <Card.Text className="item-comment__date">
-                {comment.date} 12.03.2012 12:30
+                {date.toLocaleString("ru", options)}
             </Card.Text>
 
         </Card>
