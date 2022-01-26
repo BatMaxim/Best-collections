@@ -91,6 +91,7 @@ const ItemPage = () =>{
             <ItemDescription item={item} showModal={()=>{setShowItemModal(true)}}/>
             <h3 className="item-page__comments">Comments: </h3>
             <ItemComments comments={item.comments}/>
+            <CommentsForm />
         </>
     )
 }
