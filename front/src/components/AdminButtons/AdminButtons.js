@@ -1,43 +1,7 @@
 import React from "react";
 import {ButtonGroup, Button} from "react-bootstrap";
-import axios from "axios";
-import {useDispatch} from "react-redux";
-import {clearUsers, getUsers} from "../../actions/usersActions";
 
-const AdminButtons = ({selectedUsers}) => {
-    const dispatch = useDispatch();
-    const deleteUsers = () => {
-        axios.delete(`${process.env.REACT_APP_PATH}/api/users`, {
-            data:{
-                users: selectedUsers,
-            }
-        })
-            .then((data)=>{
-                dispatch(getUsers());
-            })
-    }
-    const setAdmin = (status) => {
-        axios.put(`${process.env.REACT_APP_PATH}/api/users/admin`, {
-            data:{
-                users: selectedUsers,
-                admin:status,
-            }
-        })
-            .then((data)=>{
-                dispatch(getUsers());
-            })
-    }
-    const setBlock = (status) => {
-        axios.put(`${process.env.REACT_APP_PATH}/api/users/block`, {
-            data:{
-                users: selectedUsers,
-                block: status,
-            }
-        })
-            .then((data)=>{
-                dispatch(getUsers());
-            })
-    }
+const AdminButtons = ({deleteUsers, setBlock, setAdmin}) => {
     return (
         <ButtonGroup>
             <Button variant="dark" onClick={deleteUsers}>Delete</Button>

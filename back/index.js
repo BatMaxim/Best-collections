@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser, checkToken} = require("./firebaseAdmin");
+const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser, checkToken, getUserByToken} = require("./firebaseAdmin");
 const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
@@ -52,27 +52,36 @@ app.get("/api/users/:uid", (req, res)=>{
         });
 })
 
-app.delete("/api/users", (req, res)=>{
+app.delete("/api/users", async (req, res)=>{
     try{
-        req.body.users.forEach(user=>{deleteUser(user).then(()=>{res.json({mes: "OK"})})})
+        for(let i=0; i < req.body.users.length; i++){
+            await deleteUser(req.body.users[i]);
+        }
+        res.json({mes: "OK"})
     }
     catch (e) {
         console.log(e);
     }
 })
 
-app.put("/api/users/admin",(req, res)=>{
+app.put("/api/users/admin",async (req, res)=>{
     try{
-        req.body.data.users.forEach(user=>{setAdminRole(user, req.body.data.admin).then(()=>{res.json({mes: "OK"})})})
+        for(let i=0; i < req.body.users.length; i++){
+           await setAdminRole(req.body.users[i], req.body.admin);
+        }
+        res.json({mes: "OK"});
     }
     catch (e) {
         console.log(e);
     }
 })
 
-app.put("/api/users/block",(req, res)=>{
+app.put("/api/users/block",async (req, res)=>{
     try{
-        req.body.data.users.forEach(user=>{updateUser(user, {disabled:req.body.data.block}).then(()=>{res.json({mes: "OK"})})})
+        for(let i=0; i < req.body.users.length; i++){
+            await updateUser(req.body.users[i], {disabled:req.body.block});
+        }
+        res.json({mes: "OK"})
     }
     catch (e) {
         console.log(e);
