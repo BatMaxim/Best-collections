@@ -91,6 +91,7 @@ app.put("/api/users/admin",async (req, res)=>{
     try{
         for(let i=0; i < req.body.users.length; i++){
            await setAdminRole(req.body.users[i], req.body.admin);
+            SendToUser(req.body.users[i], 'CHECK_ADMIN_STATUS');
         }
         res.json({mes: "OK"});
     }

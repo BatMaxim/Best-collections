@@ -23,6 +23,10 @@ function App() {
     socket.on("LOG_OUT", ()=>{
         dispatch(userLogOut());
     })
+    socket.on("CHECK_ADMIN_STATUS", ()=>{
+        console.log("test");
+        dispatch(autoLogIn());
+    })
     useEffect(()=>{
         dispatch(autoLogIn());
     },[]);
