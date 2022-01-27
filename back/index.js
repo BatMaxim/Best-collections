@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
-const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser, checkToken, getUserByToken} = require("./firebaseAdmin");
+const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser, getCustomToken, getDecodedToken} = require("./firebaseAdmin");
 const path = require("path");
 const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
@@ -13,7 +13,6 @@ const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require
 const {getStrField, getIntField, getTextField, getBoolField, addFields, updateField} = require("./Database/Controllers/CustomFieldController");
 const {getTags, AddTags} = require("./Database/Controllers/TagController");
 const {AddTagsItems, getTagsItems, DeleteTagsItems} = require("./Database/Controllers/TagItemController");
-const {DeleteItem} = require("./Database/Database");
 const {getComments, AddComment} = require("./Database/Controllers/CommentController");
 
 const app = express();
@@ -33,8 +32,15 @@ app.use(express.static(`build`));
 
 
 app.get("/api/login", (req, res)=>{
-    checkToken(req.headers["authorization"]).then(data=>{
+    getCustomToken(req.headers["authorization"]).then(data=>{
         res.json(data);
+    });
+})
+
+app.get("/api/admin", (req, res)=>{
+    getDecodedToken(req.headers["authorization"]).then(data=>{
+        res.json(data.admin ? data.admin : false);
+
     });
 })
 

@@ -10,10 +10,11 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import {useContext, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {autoLogIn, userLogOut} from "./actions/userActions";
+import {autoLogIn, getAdminStatus, userLogOut} from "./actions/userActions";
 import CollectionPage from "./pages/CollectionPage/CollectionPage";
 import ItemPage from "./pages/ItemPage/ItemPage";
 import {SocketContext} from "./socket";
+import AdminPrivateRoute from "./components/AdminPrivatRoute/AdminPrivatRoute";
 
 function App() {
     const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function App() {
                     <Route exact path="/profile"
                            element={<PrivateRoute component={<ProfilePage />}/>} />
                     <Route exact path="/users"
-                           element={<PrivateRoute component={<UsersPage />}/>} />
+                           element={<AdminPrivateRoute component={<UsersPage />}/>} />
                     <Route path="*" element={<WelcomePage />}/>
                 </Routes>
           </Container>

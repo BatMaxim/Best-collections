@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Form, Button} from "react-bootstrap";
 import "./LogInForm.css";
 import {Link, useNavigate} from "react-router-dom";
-import {userLogIn} from "../../actions/userActions";
+import {getAdminStatus, userLogIn} from "../../actions/userActions";
 import {useDispatch} from "react-redux";
 
 const LogInForm = ({title, handleClick}) =>{
@@ -19,6 +19,7 @@ const LogInForm = ({title, handleClick}) =>{
             .then((userCredential) => {
                 const {email, uid, accessToken} = userCredential.user;
                 dispatch(userLogIn(email,uid,accessToken));
+                dispatch(getAdminStatus(accessToken));
                 setError("");
                 navigate("/")
             })

@@ -6,7 +6,7 @@ import LogInButton from "../LogInButton/LogInButton";
 import LogOutButton from "../LogOutButton/LogOutButton";
 
 const Header = () => {
-    const uid = useSelector((state)=>state.user.uid);
+    const {uid, admin} = useSelector((state)=>state.user);
     return(
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -19,9 +19,9 @@ const Header = () => {
                         <LinkContainer to="/profile">
                             <Nav.Link>Profile</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/users">
+                        {admin && <LinkContainer to="/users">
                             <Nav.Link>Users</Nav.Link>
-                        </LinkContainer>
+                        </LinkContainer>}
                     </Nav>:
                         <Nav className="me-auto">
 
