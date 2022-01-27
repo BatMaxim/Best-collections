@@ -155,7 +155,8 @@ const CollectionPage = () => {
             </div>
             <CardsTable items={cards}
                         customFields={fields}
-                        DeleteItem={DeleteItem}/>
+                        DeleteItem={DeleteItem}
+                        showActions={true}/>
         </div>
     )
 }

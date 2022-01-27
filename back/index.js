@@ -162,8 +162,23 @@ app.get("/api/topics", (req, res)=>{
     })
 })
 
+app.get("/api/last/cards/", (req, res)=>{
+    const params =  {
+        limit: 3,
+        order: [ [ 'id', 'DESC' ]],
+    }
+    getItems(params).then(cards=>{
+        res.json(cards);
+    })
+})
+
 app.get("/api/cards/:collectionId", (req, res)=>{
-  getItems(req.params.collectionId).then(cards=>{
+    const params = {
+        where:{
+            limit: 10
+        },
+    }
+  getItems(params).then(cards=>{
       res.json(cards);
   })
 })

@@ -3,11 +3,9 @@ const Collection = require("../Models/Collection");
 const {SelectAllItems, InsertItem, DeleteItem, SelectItem, UpdateItem} = require("../Database");
 
 
-const getItems = async (collectionId) => {
+const getItems = async (params) => {
     const items = await SelectAllItems(Item,{
-        where:{
-        collectionId: collectionId,
-        },
+        ...params,
         include: {
             model: Collection,
                 required: true

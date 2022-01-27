@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
-const CardItem = ({item, customFields, DeleteItem}) => {
+const CardItem = ({item, customFields, DeleteItem, showActions}) => {
     const navigate = useNavigate();
     return(
         <tr onClick={()=>{navigate(`/item/${item.id}`)}}>
@@ -18,11 +18,11 @@ const CardItem = ({item, customFields, DeleteItem}) => {
                     </td>
                 )
             })}
-            <td className="collection-item__btn-container">
+            {showActions && <td className="collection-item__btn-container">
                 <Button variant="danger" onClick={(event)=>{DeleteItem(event, item.id)}}>
                     Delete
                 </Button>
-            </td>
+            </td>}
         </tr>
     );
 }

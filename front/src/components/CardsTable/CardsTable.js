@@ -2,7 +2,7 @@ import React from "react";
 import {Table} from "react-bootstrap";
 import CardItem from "../CardItem/CardItem";
 
-const CardsTable = ({items, customFields, DeleteItem}) =>{
+const CardsTable = ({items, customFields, DeleteItem, showActions}) =>{
     return(
         <Table striped bordered hover size="sm">
             <thead>
@@ -13,7 +13,7 @@ const CardsTable = ({items, customFields, DeleteItem}) =>{
 
                     return(<th key={field.id}>{field.name}</th>)
                 })}
-                <th>Action</th>
+                {showActions && <th>Action</th>}
 
             </tr>
             </thead>
@@ -22,6 +22,7 @@ const CardsTable = ({items, customFields, DeleteItem}) =>{
              items.map(item=>{
                     return <CardItem item={item}
                                      customFields={customFields}
+                                     showActions={showActions}
                                            key={item.id}
                                      DeleteItem={DeleteItem}/>
                 })
