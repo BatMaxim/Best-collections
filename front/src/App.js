@@ -8,17 +8,26 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import UsersPage from "./pages/UsersPage/UsersPage";
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {autoLogIn} from "./actions/userActions";
+import {useContext, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {autoLogIn, userLogOut} from "./actions/userActions";
 import CollectionPage from "./pages/CollectionPage/CollectionPage";
 import ItemPage from "./pages/ItemPage/ItemPage";
+import {SocketContext} from "./socket";
 
 function App() {
     const dispatch = useDispatch();
+    const socket = useContext(SocketContext);
+    const user = useSelector((state)=>state.user);
+    socket.on("LOG_OUT", ()=>{
+        dispatch(userLogOut());
+    })
     useEffect(()=>{
         dispatch(autoLogIn());
     },[]);
+    useEffect(()=>{
+            socket.emit("SET_UID", {user:user.uid})
+    },[user]);
     return (
         <div className="App">
           <Header />

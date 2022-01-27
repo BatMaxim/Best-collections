@@ -52,10 +52,27 @@ app.get("/api/users/:uid", (req, res)=>{
         });
 })
 
+const getSockets = (uid) =>{
+    let ids = [];
+    for (let s of io.sockets.sockets.values()) {
+        if(s.uid===uid)
+            ids.push(s.id)
+    }
+   return ids;
+
+}
+
+const SendToUser = (uid, message) =>{
+    getSockets(uid).forEach((id)=>{
+        io.sockets.sockets.get(id).emit(message);
+    })
+}
+
 app.delete("/api/users", async (req, res)=>{
     try{
         for(let i=0; i < req.body.users.length; i++){
             await deleteUser(req.body.users[i]);
+            SendToUser(req.body.users[i], 'LOG_OUT');
         }
         res.json({mes: "OK"})
     }
@@ -80,6 +97,9 @@ app.put("/api/users/block",async (req, res)=>{
     try{
         for(let i=0; i < req.body.users.length; i++){
             await updateUser(req.body.users[i], {disabled:req.body.block});
+            if(req.body.block)
+                SendToUser(req.body.users[i], 'LOG_OUT');
+
         }
         res.json({mes: "OK"})
     }
@@ -316,6 +336,10 @@ io.on('connection', (socket) => {
         getComments(params).then(data=>{
             socket.emit("SET_ALL_COMMENTS", data)
         })
+    });
+
+    socket.on("SET_UID", data=>{
+       socket.uid = data.user;
     });
 
     socket.on("LEAVE_ROOM", data=>{

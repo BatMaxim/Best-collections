@@ -25,7 +25,9 @@ const UsersPage = () => {
     }
     const deleteUsers = () => {
         const data = {
+            data:{
             users: selectedUsers
+        }
         }
         cahgeUsers(axios.delete, data)
     }
