@@ -28,11 +28,14 @@ const checkToken = async (idToken) =>{
     const decodedToken= await admin.auth().verifyIdToken(idToken);
     const customToken = await admin.auth().createCustomToken(decodedToken.uid)
     return customToken;
+}
 
+const getUserByToken = (token) =>{
+    return admin.auth().verifyIdToken(token);
 }
 
 const setAdminRole = (uid, adminRole) =>{
     return admin.auth().setCustomUserClaims(uid, { admin: adminRole });
 }
 
-module.exports = {getAllUsers, deleteUser, checkToken, setAdminRole, updateUser, getUser}
+module.exports = {getAllUsers, deleteUser, checkToken, setAdminRole, updateUser, getUser, getUserByToken}

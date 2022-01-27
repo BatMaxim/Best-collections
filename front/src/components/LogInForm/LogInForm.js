@@ -8,25 +8,36 @@ import {useDispatch} from "react-redux";
 const LogInForm = ({title, handleClick}) =>{
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+
     const submitForm= (event)=>{
         event.preventDefault();
         handleClick(login, password)
             .then((userCredential) => {
                 const {email, uid, accessToken} = userCredential.user;
                 dispatch(userLogIn(email,uid,accessToken));
+                setError("");
                 navigate("/")
             })
             .catch((err)=>{
-                    console.log(err);
+                setError(err.message.replace("Firebase: ", ""));
                 }
             )
     }
+
     return(
         <Form className="log-in__form"
         onSubmit={submitForm}>
             <h2 className="log-in__title">{title}</h2>
+            <div className="log-in__error-container">
+                <Form.Text className="log-in__error">
+                    {error}
+                </Form.Text>
+            </div>
+
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email"

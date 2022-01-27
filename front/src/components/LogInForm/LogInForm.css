@@ -1,6 +1,6 @@
 .log-in__form{
     width: 30vw;
-    min-width: 200px;
+    min-width: 500px    ;
     border: 1px solid black;
     border-radius: 20px;
     box-shadow: black;
@@ -14,4 +14,17 @@
 .log-in__text{
     margin-top: 10px;
     text-align: center;
+}
+.log-in__error{
+    color: red !important;
+}
+.log-in__error-container{
+    text-align: center
+}
+
+@media (max-width: 500px) {
+    .log-in__form {
+        width: 100% !important;
+        min-width: 0;
+    }
 }
