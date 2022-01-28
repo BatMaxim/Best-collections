@@ -12,7 +12,16 @@ const getTagsItems = async (id) => {
             required: true
         }
     }
+}
 
+const getAllTagsWithItems = async () => {
+    const params = {
+        include: {
+            model: Tag,
+            required: true
+        },
+        group: 'tagId'
+    }
     const tags = await SelectAllItems(TagItem, params);
     return tags;
 }
@@ -32,4 +41,4 @@ const DeleteTagsItems = async (id) => {
     return tags;
 }
 
-module.exports = { AddTagsItems, getTagsItems, DeleteTagsItems};
+module.exports = { AddTagsItems, getTagsItems, DeleteTagsItems, getAllTagsWithItems};

@@ -1,0 +1,7 @@
+.all-tags__tag{
+    font-size: 16px;
+}
+.all-tags__tag:hover{
+    background: grey !important;
+    transition: 0.3s;
+}

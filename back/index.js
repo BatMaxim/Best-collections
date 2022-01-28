@@ -12,7 +12,7 @@ const {getItems, addItem, deleteItem, getItem, updateItem} = require("./Database
 const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
 const {getStrField, getIntField, getTextField, getBoolField, addFields, updateField} = require("./Database/Controllers/CustomFieldController");
 const {getTags, AddTags} = require("./Database/Controllers/TagController");
-const {AddTagsItems, getTagsItems, DeleteTagsItems} = require("./Database/Controllers/TagItemController");
+const {AddTagsItems, getTagsItems, DeleteTagsItems, getAllTagsWithItems} = require("./Database/Controllers/TagItemController");
 const {getComments, AddComment} = require("./Database/Controllers/CommentController");
 
 const app = express();
@@ -337,7 +337,7 @@ app.delete("/api/fields/name/:fieldId", (req, res)=>{
 
 
 app.get("/api/tags", (req, res)=>{
-    getTags().then(tags=>{
+    getAllTagsWithItems().then(tags=>{
         res.json(tags);
     })
 })

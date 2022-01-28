@@ -9,5 +9,6 @@ export const addTags = (tags) => ({
 
 export const getTags =  () => async dispatch => {
     let tags = await axios.get(`${process.env.REACT_APP_PATH}/api/tags/`);
-    dispatch(addTags(tags.data));
+    tags=tags.data.map(el=>el.tag);
+    dispatch(addTags(tags));
 }
