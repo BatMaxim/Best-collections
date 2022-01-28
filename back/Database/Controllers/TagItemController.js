@@ -1,28 +1,33 @@
 const TagItem = require("../Models/TagItem");
 const {SelectAllItems, InsertItems,DeleteItem} = require("../Database");
 const Tag = require("../Models/Tag");
+const Item = require("../Models/Item");
 
-const getTagsItems = async (id) => {
+const getTagsItems = async (param) => {
     const params = {
-        where: {
-            itemId: id
-        },
-        include: {
-            model: Tag,
-            required: true
-        }
-    }
-}
-
-const getAllTagsWithItems = async () => {
-    const params = {
-        include: {
+        ...param,
+        include: [{
             model: Tag,
             required: true
         },
-        group: 'tagId'
+        {
+            model: Item,
+            required: true
+        }]
     }
     const tags = await SelectAllItems(TagItem, params);
+    return tags;
+}
+
+    const getAllTagsWithItems = async () => {
+        const params = {
+            include: {
+                model: Tag,
+                required: true
+            },
+            group: 'tagId'
+        }
+        const tags = await SelectAllItems(TagItem, params);
     return tags;
 }
 

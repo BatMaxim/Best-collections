@@ -15,6 +15,7 @@ import CollectionPage from "./pages/CollectionPage/CollectionPage";
 import ItemPage from "./pages/ItemPage/ItemPage";
 import {SocketContext} from "./socket";
 import AdminPrivateRoute from "./components/AdminPrivatRoute/AdminPrivatRoute";
+import ItemsPage from "./pages/ItemsPage/ItemsPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
                     <Route path="/collection/:collectionId" element={<CollectionPage />}/>
                     <Route path="/item/:itemId" element={<ItemPage />}/>
                     <Route exact path="/registration" element={<RegistrationPage />}/>
+                    <Route exact path="/items" element={<ItemsPage />}/>
                     <Route exact path="/profile"
                            element={<PrivateRoute component={<ProfilePage />}/>} />
                     <Route exact path="/users"

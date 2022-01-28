@@ -5,6 +5,7 @@ import "./ItemDescription.css";
 import {useNavigate} from "react-router-dom";
 
 const ItemDescription = ({item, showModal}) =>{
+    console.log(item.tags);
     const navigate = useNavigate();
     return(
         <Card className="item-description">
@@ -24,6 +25,7 @@ const ItemDescription = ({item, showModal}) =>{
                 <Card.Subtitle>Tags: </Card.Subtitle>
                 <div className="item-description__tags">
                     {
+
                         item.tags.map(tag=>{
                             return( <Badge key={tag.tag?.id} bg="secondary">{tag.tag?.name}</Badge>)
                         })
