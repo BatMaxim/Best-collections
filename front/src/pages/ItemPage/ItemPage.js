@@ -13,14 +13,15 @@ import "./ItemPage.css"
 import CommentsForm from "../../components/CommentsForm/CommentsForm";
 const ItemPage = () =>{
     const [showItemModal, setShowItemModal] = useState(false);
+    const [editRule, setEditRule] = useState(false)
     let { itemId } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state)=>state.user);
     const item = useSelector((state)=>state.currentItem);
+
     const tags = useSelector((state)=>state.tags.tags);
     const fields = useSelector((state)=>state.collection.fields);
     const socket = useContext(SocketContext);
-
     useEffect(()=>{
         dispatch(getItem(itemId))
         dispatch(getTags());
@@ -29,6 +30,11 @@ const ItemPage = () =>{
     useEffect(()=>{
         dispatch(getFields(item.collection.id));
     },[item])
+
+    useEffect(()=>{
+        console.log(user.uid, )
+        setEditRule(user.uid===item.collection.authorId || user.admin)
+    },[user, item])
 
     useEffect(() => {
         socket.emit("USER_ONLINE", {itemId: itemId, user: user.userName});
@@ -100,10 +106,12 @@ const ItemPage = () =>{
                        customFields={fields}
                        item={item}
                        send={EditItem}/>
-            <ItemDescription item={item} showModal={()=>{setShowItemModal(true)}}/>
+            <ItemDescription item={item}
+                             showModal={()=>{setShowItemModal(true)}}
+                             editRule={editRule}/>
             <h3 className="item-page__comments">Comments: </h3>
             <ItemComments comments={item.comments}/>
-            <CommentsForm sendComment={sendComment}/>
+            {user.uid && <CommentsForm sendComment={sendComment}/>}
         </>
     )
 }

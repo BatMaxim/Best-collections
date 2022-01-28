@@ -4,16 +4,18 @@ import {useSelector} from "react-redux";
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-const CollectionDescription = ({collection, openImgModal, openCollectionModal}) => {
-        const user = useSelector((state)=>state.user);
+const CollectionDescription = ({collection, openImgModal, openCollectionModal, editRule}) => {
         return(
         <Card className="collection">
             <Card.Header className="collection__header">
-                <div className="collection__img-container" onClick={openImgModal}>
+                <div className="collection__img-container" onClick={()=>{
+                    if(editRule)
+                        openImgModal()
+                }}>
                     <img className="collection__img" src={collection.picture}/>
                     <>Collection: {collection.id}</>
                 </div>
-                {user.uid===collection.author?.id && <Button variant="secondary" onClick={openCollectionModal}>Edit</Button>}
+                {editRule && <Button variant="secondary" onClick={openCollectionModal}>Edit</Button>}
             </Card.Header>
             <Card.Body>
                 <Card.Title>{collection.name}</Card.Title>

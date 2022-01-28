@@ -18,6 +18,7 @@ const CollectionPage = () => {
     const [showIgmModal, setShowIgmModal] = useState(false);
     const [showCollectionModal, setShowCollectionModal] = useState(false);
     const [showItemModal, setShowItemModal] = useState(false);
+    const [editRule, setEditRule] = useState(false)
     const updateCollection = (newValues) => {
         axios.put(`${process.env.REACT_APP_PATH}/api/collections/${collection.id}`, newValues)
                 .then(()=>{
@@ -27,6 +28,13 @@ const CollectionPage = () => {
 
     let { collectionId } = useParams();
     const dispatch = useDispatch();
+
+    const collection = useSelector((state)=>state.collection.collection);
+    const cards = useSelector((state)=>state.collection.cards);
+    const fields = useSelector((state)=>state.collection.fields);
+    const tags = useSelector((state)=>state.tags.tags);
+    const user = useSelector((state)=>state.user);
+
     useEffect(()=>{
         dispatch(getCollection(collectionId));
         dispatch(deleteCards());
@@ -34,10 +42,9 @@ const CollectionPage = () => {
         dispatch(getFields(collectionId));
         dispatch(getTags());
     }, [])
-    const collection = useSelector((state)=>state.collection.collection);
-    const cards = useSelector((state)=>state.collection.cards);
-    const fields = useSelector((state)=>state.collection.fields);
-    const tags = useSelector((state)=>state.tags.tags);
+    useEffect(()=>{
+        setEditRule(user.uid===collection.author?.id || user.admin)
+    },[user, collection])
 
     const addField = (name, type) => {
         axios.post(`${process.env.REACT_APP_PATH}/api/fields/name`, {
@@ -142,21 +149,22 @@ const CollectionPage = () => {
 
             <CollectionDescription collection={collection}
                                    openImgModal={()=>{setShowIgmModal(true)}}
+                                   editRule={editRule}
                                    openCollectionModal={()=>{setShowCollectionModal(true)}}/>
-            <AddingField addField={addField}/>
-            {fields.length>0 &&  <CustomFields fields={fields}
+            {editRule && <AddingField addField={addField}/>}
+            {fields.length>0 && editRule &&  <CustomFields fields={fields}
                           fieldActions={{
                               delete: deleteField,
                               edit:EditField,
                           }}/>}
             <div className="collections__cards-header">
                 <h4>Items:</h4>
-                <Button variant="secondary" onClick={()=>{setShowItemModal(true)}}>Add Item</Button>
+                {editRule && <Button variant="secondary" onClick={()=>{setShowItemModal(true)}}>Add Item</Button>}
             </div>
             <CardsTable items={cards}
                         customFields={fields}
                         DeleteItem={DeleteItem}
-                        showActions={true}/>
+                        showActions={editRule}/>
         </div>
     )
 }

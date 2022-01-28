@@ -4,8 +4,7 @@ import CustomFieldInItem from "./CustomFieldInItem";
 import "./ItemDescription.css";
 import {useNavigate} from "react-router-dom";
 
-const ItemDescription = ({item, showModal}) =>{
-    console.log(item.tags);
+const ItemDescription = ({item, showModal, editRule}) =>{
     const navigate = useNavigate();
     return(
         <Card className="item-description">
@@ -14,7 +13,7 @@ const ItemDescription = ({item, showModal}) =>{
                 <div>
                     Item {item.id}
                 </div>
-                 <Button variant="secondary" onClick={showModal} >Edit</Button>
+                {editRule && <Button variant="secondary" onClick={showModal} >Edit</Button>}
             </Card.Header>
 
 
