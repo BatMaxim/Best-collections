@@ -5,6 +5,7 @@ import "./ItemDescription.css";
 import {useNavigate} from "react-router-dom";
 
 const ItemDescription = ({item, showModal}) =>{
+    console.log(item.tags);
     const navigate = useNavigate();
     return(
         <Card className="item-description">
