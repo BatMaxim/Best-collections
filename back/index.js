@@ -6,7 +6,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const {getAllUsers, deleteUser, setAdminRole, updateUser, getUser, getCustomToken, getDecodedToken} = require("./firebaseAdmin");
 const path = require("path");
-const {getCollections,getCollection, addCollection, updateCollection, deleteCollection} = require("./Database/Controllers/CollectionController");
+const {getCollections,getCollection, addCollection, updateCollection, deleteCollection, getPopularCollections} = require("./Database/Controllers/CollectionController");
 const {getTopics} = require("./Database/Controllers/TopicController");
 const {getItems, addItem, deleteItem, getItem, updateItem} = require("./Database/Controllers/ItemController");
 const {addFieldName, getFieldsNames, deleteFieldName, updateFieldName} = require("./Database/Controllers/FieldsNamesController");
@@ -115,6 +115,12 @@ app.put("/api/users/block",async (req, res)=>{
     }
 })
 
+app.get("/api/popular/collections", (req, res)=>{
+    getPopularCollections().then(collections=>{
+        res.json(collections);
+    })
+})
+
 app.get("/api/collections", (req, res)=>{
     getCollections().then(collections=>{
         res.json(collections);
@@ -175,7 +181,7 @@ app.get("/api/last/cards/", (req, res)=>{
 app.get("/api/cards/:collectionId", (req, res)=>{
     const params = {
         where:{
-            limit: 10
+            collectionId: req.params.collectionId
         },
     }
   getItems(params).then(cards=>{

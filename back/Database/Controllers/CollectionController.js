@@ -1,6 +1,6 @@
 const Collection = require("../Models/Collection");
 const Topic = require("../Models/Topic");
-const {SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem} = require("../Database");
+const {SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem, CallStoredProcedure} = require("../Database");
 
 const getCollections = async (customParams) => {
     const params = {
@@ -30,6 +30,12 @@ const addCollection = async (params) => {
     const collecions = await InsertItem(Collection, params);
     return collecions;
 }
+
+const getPopularCollections = async () => {
+    const collecions = CallStoredProcedure("popular_collections");
+    return collecions;
+}
+
 const updateCollection = async (newValues, params) => {
     const collecions = await UpdateItem(Collection, newValues, params);
     return collecions;
@@ -40,4 +46,4 @@ const deleteCollection = async (params) => {
     return collecions;
 }
 
-module.exports = { getCollections, getCollection, addCollection, updateCollection, deleteCollection };
+module.exports = { getCollections, getCollection, addCollection, updateCollection, deleteCollection, getPopularCollections };

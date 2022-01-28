@@ -3,7 +3,6 @@ import ItemComment from "./ItemComment/ItemComment";
 import "./ItemComments.css";
 
 const ItemComments = ({comments}) =>{
-    console.log(comments);
     return(
         <div className="item-comments">
             {comments.map(comment=>{

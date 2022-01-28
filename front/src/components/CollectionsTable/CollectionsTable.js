@@ -1,9 +1,8 @@
 import React from "react";
 import {Table} from "react-bootstrap";
 import CollectionItem from "../CollectionItem/CollectionItem";
-import axios from "axios";
 
-const CollectionsTable = ({ collections, deleteCollection}) => {
+const CollectionsTable = ({ collections, deleteCollection, showActions}) => {
     return(
         <Table striped bordered hover size="sm">
             <thead>
@@ -11,7 +10,7 @@ const CollectionsTable = ({ collections, deleteCollection}) => {
                 <th>Picture</th>
                 <th>Name</th>
                 <th>Topic</th>
-                <th>Action</th>
+                {showActions && <th>Action</th>}
             </tr>
             </thead>
             <tbody>
@@ -19,7 +18,8 @@ const CollectionsTable = ({ collections, deleteCollection}) => {
                 collections.map(collection=>{
                     return <CollectionItem collection={collection}
                                            key={collection.id}
-                                           deleteCollection={deleteCollection}/>
+                                           deleteCollection={deleteCollection}
+                                           showActions={showActions}/>
                 })
             }
             </tbody>

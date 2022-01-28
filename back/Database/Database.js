@@ -59,5 +59,15 @@ const  InsertItems = async (model, params) => {
     }
 }
 
+const  CallStoredProcedure = async (name) => {
+    try {
+        const newItems =  await database.query(`call ${name}();`);
+        return newItems;
+    }
+    catch (err) {
+        return err;
+    }
+}
 
-module.exports = { database, SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem, InsertItems}
+
+module.exports = { database, SelectAllItems, SelectItem, InsertItem, UpdateItem, DeleteItem, InsertItems, CallStoredProcedure}
