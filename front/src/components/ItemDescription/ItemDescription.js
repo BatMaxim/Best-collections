@@ -24,6 +24,7 @@ const ItemDescription = ({item, showModal}) =>{
                 <Card.Subtitle>Tags: </Card.Subtitle>
                 <div className="item-description__tags">
                     {
+
                         item.tags.map(tag=>{
                             return( <Badge key={tag.tag?.id} bg="secondary">{tag.tag?.name}</Badge>)
                         })

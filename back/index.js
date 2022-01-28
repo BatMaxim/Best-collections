@@ -189,6 +189,15 @@ app.get("/api/cards/:collectionId", (req, res)=>{
   })
 })
 
+app.get("/api/tag/cards/:tagId", (req, res)=>{
+    getTagsItems({
+        where: {
+            tagId: req.params.tagId,
+        }
+    }).then(cards=>{
+        res.json(cards);
+    })
+})
 app.get("/api/card/:cardId", (req, res)=>{
     getItem(req.params.cardId).then(cards=>{
         res.json(cards);
@@ -247,7 +256,11 @@ app.put("/api/cards",async (req, res)=>{
             id: item.id
         }
     })
-    const tags = await getTagsItems(item.id);
+    const tags = await getTagsItems( {
+        where:{
+            itemId:item.id,
+        }
+    });
     const newTags = getNewTags(item.tags, tags);
     const deletedTags = getDeletedTags(item.tags, tags);
     const unknownTags =newTags.filter(tag=>!tag.id)
@@ -343,7 +356,11 @@ app.get("/api/tags", (req, res)=>{
 })
 
 app.get("/api/tags/:itemId", (req, res)=>{
-    getTagsItems(req.params.itemId).then(tags=>{
+    getTagsItems({
+        where:{
+                itemId:req.params.itemId,
+            }
+        }).then(tags=>{
         res.json(tags);
     })
 })
