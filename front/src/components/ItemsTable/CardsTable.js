@@ -1,6 +1,6 @@
 import React from "react";
 import {Table} from "react-bootstrap";
-import CardItem from "../CardItem/CardItem";
+import CardItem from "../ItemsTableItem/CardItem";
 
 const CardsTable = ({items, customFields, DeleteItem, showActions}) =>{
     return(

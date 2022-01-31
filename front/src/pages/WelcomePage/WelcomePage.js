@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import CardsTable from "../../components/CardsTable/CardsTable";
+import CardsTable from "../../components/ItemsTable/CardsTable";
 import CollectionsTable from "../../components/CollectionsTable/CollectionsTable";
 import AllTags from "../../components/AllTags/AllTags";
 

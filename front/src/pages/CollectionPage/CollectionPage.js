@@ -7,7 +7,7 @@ import {deleteCards, getCards, getCollection, getFields} from "../../actions/cur
 import DNDModal from "../../components/Modals/DNDModal";
 import CollectionDescriptionModal from "../../components/Modals/CollectionDescriptionModal";
 import axios from "axios";
-import CardsTable from "../../components/CardsTable/CardsTable";
+import CardsTable from "../../components/ItemsTable/CardsTable";
 import AddingField from "../../components/AddingField/AddingField";
 import CustomFields from "../../components/CustomFields/CustomFields";
 import {Button} from "react-bootstrap";

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import CardsTable from "../../components/CardsTable/CardsTable";
+import CardsTable from "../../components/ItemsTable/CardsTable";
 import "./ItemsPage.css"
 
 const ItemsPage = () =>{
