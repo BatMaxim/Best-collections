@@ -9,7 +9,7 @@ const ItemsPage = () =>{
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_PATH}/api/tag/cards/${searchParams.get("tag")}`).then((data)=>{
+        axios.get(`${process.env.REACT_APP_PATH}/api/tag/items/${searchParams.get("tag")}`).then((data)=>{
             setItems(data.data.map(el=>el.item));
         })
     }, []);

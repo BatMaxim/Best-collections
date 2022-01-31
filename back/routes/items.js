@@ -4,7 +4,7 @@ const {addFields, updateField} = require("../Database/Controllers/CustomFieldCon
 const {AddTags} = require("../Database/Controllers/TagController");
 
 module.exports = (app)=>{
-    app.get("/api/last/cards/", (req, res)=>{
+    app.get("/api/last/items/", (req, res)=>{
         const params =  {
             limit: 3,
             order: [ [ 'id', 'DESC' ]],
@@ -14,7 +14,7 @@ module.exports = (app)=>{
         })
     })
 
-    app.get("/api/cards/:collectionId", (req, res)=>{
+    app.get("/api/items/:collectionId", (req, res)=>{
         const params = {
             where:{
                 collectionId: req.params.collectionId
@@ -25,7 +25,7 @@ module.exports = (app)=>{
         })
     })
 
-    app.get("/api/tag/cards/:tagId", (req, res)=>{
+    app.get("/api/tag/items/:tagId", (req, res)=>{
         getTagsItems({
             where: {
                 tagId: req.params.tagId,
@@ -34,14 +34,14 @@ module.exports = (app)=>{
             res.json(cards);
         })
     })
-    app.get("/api/card/:cardId", (req, res)=>{
+    app.get("/api/item/:cardId", (req, res)=>{
         getItem(req.params.cardId).then(cards=>{
             res.json(cards);
         })
     })
 
 
-    app.post("/api/cards", async (req, res)=>{
+    app.post("/api/items", async (req, res)=>{
         const newItem = {
             name:req.body.name,
             collectionId: req.body.collectionId,
@@ -80,7 +80,7 @@ module.exports = (app)=>{
         }
     }
 
-    app.put("/api/cards",async (req, res)=>{
+    app.put("/api/items",async (req, res)=>{
         const getNewTags = (UsersTags, tags) => UsersTags.filter(tag=>  !tags.find(el=>el.tag.id===tag.id));
         const getDeletedTags = (UsersTags, tags) =>tags.filter(tag=>!UsersTags.find(el=>el.id===tag.tag.id));
 
@@ -123,7 +123,7 @@ module.exports = (app)=>{
         res.json({item: "ok"});
     })
 
-    app.delete("/api/cards/:itemId", (req, res)=>{
+    app.delete("/api/items/:itemId", (req, res)=>{
         const params = {
             where: {
                 id: req.params.itemId

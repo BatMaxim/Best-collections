@@ -9,7 +9,7 @@ const WelcomePage = () =>{
     const [collections, setCollections] = useState([]);
     const [tags, setTags] = useState([]);
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_PATH}/api/last/cards`).then((data)=>{
+        axios.get(`${process.env.REACT_APP_PATH}/api/last/items`).then((data)=>{
             setItems(data.data);
         })
         axios.get(`${process.env.REACT_APP_PATH}/api/popular/collections`).then((data)=>{

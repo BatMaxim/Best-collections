@@ -73,7 +73,7 @@ const ItemPage = () =>{
         const IntegerValues = getCustomFieldsValues("Integer", fields);
 
 
-        axios.put(`${process.env.REACT_APP_PATH}/api/cards/`,{
+        axios.put(`${process.env.REACT_APP_PATH}/api/items/`,{
             id:item.id,
             name: name,
             tags: tags,

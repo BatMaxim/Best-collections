@@ -92,7 +92,7 @@ const CollectionPage = () => {
         const TextValues = getCustomFieldsValues("Text", fieldsValues);
         const StringValues = getCustomFieldsValues("String", fieldsValues);
         const IntegerValues = getCustomFieldsValues("Integer", fieldsValues);
-        const newItem = await axios.post(`${process.env.REACT_APP_PATH}/api/cards/`,{
+        const newItem = await axios.post(`${process.env.REACT_APP_PATH}/api/items/`,{
             collectionId:collection.id,
             name: name,
             BoolValues: BoolValues,
@@ -110,7 +110,7 @@ const CollectionPage = () => {
 
     const DeleteItem = (event, id) => {
         event.stopPropagation();
-        axios.delete(`${process.env.REACT_APP_PATH}/api/cards/${id}`).then(()=>{
+        axios.delete(`${process.env.REACT_APP_PATH}/api/items/${id}`).then(()=>{
             dispatch(deleteCards());
             dispatch(getCards(collectionId));
             dispatch(getTags());

@@ -27,7 +27,7 @@ export const addCustomItemFields = (fields) => ({
 });
 
 export const getItem =  (id) => async dispatch => {
-    const item = await axios.get(`${process.env.REACT_APP_PATH}/api/card/${id}`);
+    const item = await axios.get(`${process.env.REACT_APP_PATH}/api/item/${id}`);
     dispatch(addMainItemFields(item.data));
     const tags = await axios.get(`${process.env.REACT_APP_PATH}/api/tags/${id}`);
     dispatch(addItemTags(tags.data));

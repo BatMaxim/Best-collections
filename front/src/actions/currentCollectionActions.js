@@ -31,7 +31,7 @@ export const getCollection =  (id) => async dispatch => {
 }
 
 export const getCards =  (id) => async dispatch => {
-    let cards = await axios.get(`${process.env.REACT_APP_PATH}/api/cards/${id}`);
+    let cards = await axios.get(`${process.env.REACT_APP_PATH}/api/items/${id}`);
     for (let i=0; i<cards.data.length; i++){
         const card = cards.data[i];
         card.customFields = (await axios.get(`${process.env.REACT_APP_PATH}/api/fields/values/${card.id}`)).data;
